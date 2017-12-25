@@ -1,0 +1,45 @@
+<!--
+ The MIT License
+
+ Copyright (c) 2017 - Klaus Landsdorf (http://bianco-royal.de/)
+ All rights reserved.
+ node-red-contrib-jwt
+-->
+
+<script type="text/javascript">
+  RED.nodes.registerType('JWT-OUT', {
+    category: 'output',
+    color: "#6beee5",
+    defaults: {
+      name: {value: ""},
+      signature: {value: ""}
+    },
+    inputs: 1,
+    outputs: 1,
+    align: "right",
+    icon: "jwt-icon.png",
+    label: function () {
+      return this.name || "JWT OUT";
+    },
+    labelStyle: function () {
+      return this.name ? "node_label_italic" : "";
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="JWT-OUT">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-input-name" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-signature"><i class="fa fa-certificate"></i> <span data-i18n="jwt-contrib.label.signature"></span></label>
+        <input type="text" id="node-input-signature" placeholder="jwt">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="JWT-OUT">
+    <h2>JWT Output Node</h2>
+
+    <p>!!! UNDER DEVELOPMENT !!!</p>
+</script>

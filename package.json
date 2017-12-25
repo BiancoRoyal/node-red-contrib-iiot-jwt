@@ -34,7 +34,8 @@
   },
   "node-red": {
     "nodes": {
-      "JWT-IN": "dnp/jwt-in.js"
+      "JWT-In": "jwt/jwt-in.js",
+      "JWT-Out": "jwt/jwt-out.js"
     }
   },
   "engines": {
