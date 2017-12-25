@@ -10,7 +10,7 @@
 
 'use strict'
 
-var inputNode = require('../src/jwt-in.js')
+var outputNode = require('../src/jwt-out.js')
 var helper = require('./helper.js')
 
 describe('Read node Testing', function () {
@@ -24,12 +24,12 @@ describe('Read node Testing', function () {
 
   describe('Node', function () {
     it('simple read node should be loaded', function (done) {
-      helper.load([inputNode], [
-        {"id":"1701afa1.842a7","type":"JWT-IN","z":"a0c278ae.d0f6f8","name":"jwtInput","signature":"","x":640,"y":280,"wires":[[]]}
+      helper.load([outputNode], [
+        {"id":"910e6b99.8ba038","type":"JWT-OUT","z":"a0c278ae.d0f6f8","name":"jwtOutput","signature":"","x":440,"y":280,"wires":[[]]}
       ], function () {
 
-        var nodeUnderTest = helper.getNode('1701afa1.842a7')
-        nodeUnderTest.should.have.property('name', 'jwtInput')
+        var nodeUnderTest = helper.getNode('910e6b99.8ba038')
+        nodeUnderTest.should.have.property('name', 'jwtOutput')
 
         done()
       }, function () {
@@ -40,7 +40,7 @@ describe('Read node Testing', function () {
 
   describe('post', function () {
     it('should fail for invalid node', function (done) {
-      helper.request().post('/jwt-in/invalid').expect(404).end(done)
+      helper.request().post('/jwt-out/invalid').expect(404).end(done)
     })
   })
 })

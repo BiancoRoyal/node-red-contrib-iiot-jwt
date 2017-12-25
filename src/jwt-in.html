@@ -12,7 +12,8 @@
     color: "#6beee5",
     defaults: {
       name: {value: ""},
-      signature: {value: ""}
+      signature: {value: ""},
+      entireMessage: {value: false}
     },
     inputs: 1,
     outputs: 1,
@@ -35,6 +36,14 @@
     <div class="form-row">
         <label for="node-input-signature"><i class="fa fa-certificate"></i> <span data-i18n="jwt-contrib.label.signature"></span></label>
         <input type="text" id="node-input-signature" placeholder="jwt">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label style="min-width:160px" for="node-input-entireMessage">
+            <i class="fa fa-th"></i>
+            <span data-i18n="jwt-contrib.label.entireMessage"></span>
+        </label>
+        <input type="checkbox" id="node-input-entireMessage" style="max-width:30px">
     </div>
 </script>
 

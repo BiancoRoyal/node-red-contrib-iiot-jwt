@@ -15,6 +15,7 @@ module.exports = function (RED) {
     RED.nodes.createNode(this, config)
     this.name = config.name
     this.signature = config.signature
+    this.entireMessage = config.entireMessage
 
     let node = this
 
@@ -23,7 +24,13 @@ module.exports = function (RED) {
     node.on('input', function (msg) {
       // sign with default (HMAC SHA256)
       jwtCore.internalDebugLog('Sign Message HMAC SHA256')
-      node.send(jwtLib.sign(msg, node.signature || 'jwt'))
+
+      if (node.entireMessage) {
+        msg = jwtLib.sign(msg, node.signature || 'jwt')
+      } else {
+        msg.payload = jwtLib.sign(msg.payload, node.signature || 'jwt')
+      }
+      node.send(msg)
     })
   }
 
