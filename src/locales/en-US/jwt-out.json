@@ -1,0 +1,11 @@
+{
+  "jwt-contrib": {
+    "label": {
+      "signature": "signature",
+      "cert": "Certificate",
+      "entireMessage": "Sign Entire Message",
+      "showActivities": "Show Activities",
+      "showErrors": "Show Errors"
+    }
+  }
+}

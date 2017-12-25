@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-jwt",
-  "version": "0.0.2-alpha.0",
+  "version": "0.1.0",
   "private": false,
   "description": "The JSON Web Token (JWT) toolbox package for Node-RED.",
   "repository": {
@@ -34,7 +34,8 @@
   },
   "node-red": {
     "nodes": {
-      "JWT-IN": "dnp/jwt-in.js"
+      "JWT-In": "jwt/jwt-in.js",
+      "JWT-Out": "jwt/jwt-out.js"
     }
   },
   "engines": {
