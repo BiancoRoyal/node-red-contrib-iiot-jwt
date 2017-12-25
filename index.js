@@ -3,6 +3,6 @@
 
  Copyright (c) 2017 - Klaus Landsdorf (http://bianco-royal.de/)
  All rights reserved.
- node-red-contrib-jwt
+ node-red-contrib-iiot-jwt
  */
 'use strict'

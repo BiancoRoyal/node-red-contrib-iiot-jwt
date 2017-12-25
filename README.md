@@ -1,12 +1,12 @@
 ![Platform Node-RED](http://b.repl.ca/v1/Platform-Node--RED-red.png)
 ![Node-RED JWT](http://b.repl.ca/v1/Node--RED-JWT-blue.png)
-[![Repository GitHub](http://b.repl.ca/v1/Repository-GitHub-orange.png)](https://github.com/biancode/node-red-contrib-jwt)
-[![Quality Travis CI](http://b.repl.ca/v1/Quality-Travis_CI-green.png)](https://travis-ci.org/biancode/node-red-contrib-jwt)
-[![Build Status](https://travis-ci.org/biancode/node-red-contrib-jwt.svg?branch=master)](https://travis-ci.org/biancode/node-red-contrib-jwt)
+[![Repository GitHub](http://b.repl.ca/v1/Repository-GitHub-orange.png)](https://github.com/biancode/node-red-contrib-iiot-jwt)
+[![Quality Travis CI](http://b.repl.ca/v1/Quality-Travis_CI-green.png)](https://travis-ci.org/biancode/node-red-contrib-iiot-jwt)
+[![Build Status](https://travis-ci.org/biancode/node-red-contrib-iiot-jwt.svg?branch=master)](https://travis-ci.org/biancode/node-red-contrib-iiot-jwt)
 
 [![nodejsonwebtoken](images/jwt-icon-small64.png)](https://jwt.io/)
 
-# node-red-contrib-jwt
+# node-red-contrib-iiot-jwt
 The JSON Web Token (JWT) toolbox package for Node-RED.
 
 !!! UNDER DEVELOPMENT - START YOUR CONTRIBUTION !!!
@@ -22,11 +22,11 @@ JWT 8.x
 
 Run command on Node-RED installation directory.
 
-	npm install node-red-contrib-jwt 
+	npm install node-red-contrib-iiot-jwt 
 
 or run command for global installation.
 
-	npm install -g node-red-contrib-jwt 
+	npm install -g node-red-contrib-iiot-jwt 
 
 try these options on npm install to build, if you have problems to install
 

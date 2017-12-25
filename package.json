@@ -1,11 +1,11 @@
 {
-  "name": "node-red-contrib-jwt",
+  "name": "node-red-contrib-iiot-jwt",
   "version": "0.1.0",
   "private": false,
-  "description": "The JSON Web Token (JWT) toolbox package for Node-RED.",
+  "description": "The IIoT JSON Web Token (JWT) toolbox package for Node-RED.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/biancode/node-red-contrib-jwt.git"
+    "url": "git+https://github.com/biancode/node-red-contrib-iiot-jwt.git"
   },
   "dependencies": {
     "debug": "3.1.0",
@@ -30,7 +30,7 @@
   "author": "Klaus Landsdorf <klaus.landsdorf@bianco-royal.de>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/biancode/node-red-contrib-jwt/issues"
+    "url": "https://github.com/biancode/node-red-contrib-iiot-jwt/issues"
   },
   "node-red": {
     "nodes": {
@@ -41,7 +41,7 @@
   "engines": {
     "node": "6.x || 8.x"
   },
-  "homepage": "https://github.com/biancode/node-red-contrib-jwt#readme",
+  "homepage": "https://github.com/biancode/node-red-contrib-iiot-jwt#readme",
   "scripts": {
     "test": "standard --fix && mocha test/* --reporter dot",
     "build": "standard --fix && gulp publish",
