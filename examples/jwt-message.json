@@ -1,0 +1,96 @@
+[
+  {
+    "id": "2bd7f775.165808",
+    "type": "tab",
+    "label": "JWT Message",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "9df75223.ee913",
+    "type": "JWT-OUT",
+    "z": "2bd7f775.165808",
+    "name": "JWT OUT MSG",
+    "signature": "",
+    "entireMessage": true,
+    "x": 320,
+    "y": 100,
+    "wires": [
+      [
+        "f9fb628e.592728",
+        "7b12f39b.9348fc"
+      ]
+    ]
+  },
+  {
+    "id": "23f3b3b6.c136cc",
+    "type": "inject",
+    "z": "2bd7f775.165808",
+    "name": "",
+    "topic": "",
+    "payload": "Test",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 110,
+    "y": 100,
+    "wires": [
+      [
+        "aafe572a.75e12",
+        "9df75223.ee913"
+      ]
+    ]
+  },
+  {
+    "id": "aafe572a.75e12",
+    "type": "debug",
+    "z": "2bd7f775.165808",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 290,
+    "y": 60,
+    "wires": []
+  },
+  {
+    "id": "e87a00ce.658ec",
+    "type": "debug",
+    "z": "2bd7f775.165808",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 650,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "f9fb628e.592728",
+    "type": "JWT-IN",
+    "z": "2bd7f775.165808",
+    "name": "JWT IN MSG",
+    "signature": "",
+    "entireMessage": true,
+    "x": 510,
+    "y": 100,
+    "wires": [
+      [
+        "e87a00ce.658ec"
+      ]
+    ]
+  },
+  {
+    "id": "7b12f39b.9348fc",
+    "type": "debug",
+    "z": "2bd7f775.165808",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 490,
+    "y": 60,
+    "wires": []
+  }
+]

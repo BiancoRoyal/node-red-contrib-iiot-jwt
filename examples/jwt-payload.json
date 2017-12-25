@@ -1,0 +1,94 @@
+[
+  {
+    "id": "a0c278ae.d0f6f8",
+    "type": "tab",
+    "label": "JWT Payload",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "910e6b99.8ba038",
+    "type": "JWT-OUT",
+    "z": "a0c278ae.d0f6f8",
+    "name": "",
+    "signature": "",
+    "x": 360,
+    "y": 120,
+    "wires": [
+      [
+        "1701afa1.842a7",
+        "793bb82f.ad943"
+      ]
+    ]
+  },
+  {
+    "id": "96fb8d54.f821c8",
+    "type": "inject",
+    "z": "a0c278ae.d0f6f8",
+    "name": "",
+    "topic": "",
+    "payload": "Test",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 170,
+    "y": 120,
+    "wires": [
+      [
+        "4a7d6853.f19af8",
+        "910e6b99.8ba038"
+      ]
+    ]
+  },
+  {
+    "id": "4a7d6853.f19af8",
+    "type": "debug",
+    "z": "a0c278ae.d0f6f8",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "payload",
+    "x": 370,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "2ef71120.dbd146",
+    "type": "debug",
+    "z": "a0c278ae.d0f6f8",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "payload",
+    "x": 730,
+    "y": 120,
+    "wires": []
+  },
+  {
+    "id": "1701afa1.842a7",
+    "type": "JWT-IN",
+    "z": "a0c278ae.d0f6f8",
+    "name": "",
+    "signature": "",
+    "x": 560,
+    "y": 120,
+    "wires": [
+      [
+        "2ef71120.dbd146"
+      ]
+    ]
+  },
+  {
+    "id": "793bb82f.ad943",
+    "type": "debug",
+    "z": "a0c278ae.d0f6f8",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "payload",
+    "x": 570,
+    "y": 80,
+    "wires": []
+  }
+]

@@ -35,16 +35,16 @@ try these options on npm install to build, if you have problems to install
 ## TODO
 
 * using options:
-** algorithm (default: HS256)
-** expiresIn
-** notBefore
-** audience
-** issuer
-** jwtid
-** subject
-** noTimestamp
-** header
-** keyid
+    * algorithm (default: HS256)
+    * expiresIn
+    * notBefore
+    * audience
+    * issuer
+    * jwtid
+    * subject
+    * noTimestamp
+    * header
+    * keyid
 * using key files
 
     
