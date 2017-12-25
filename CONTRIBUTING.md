@@ -1,6 +1,6 @@
 # Contributing to node-red-contrib-jwt
 
-As in Node-RED we have some guidelines for the DNP contribution package.
+As in Node-RED we have some guidelines for the JWT contribution package.
 We welcome contributions, but request you follow these guidelines.
 
  - [Coding rules](#coding-rules)

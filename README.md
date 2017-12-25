@@ -1,15 +1,15 @@
 ![Platform Node-RED](http://b.repl.ca/v1/Platform-Node--RED-red.png)
-![Node-RED DNP3](http://b.repl.ca/v1/Node--RED-JWT-blue.png)
+![Node-RED JWT](http://b.repl.ca/v1/Node--RED-JWT-blue.png)
 [![Repository GitHub](http://b.repl.ca/v1/Repository-GitHub-orange.png)](https://github.com/biancode/node-red-contrib-jwt)
 [![Quality Travis CI](http://b.repl.ca/v1/Quality-Travis_CI-green.png)](https://travis-ci.org/biancode/node-red-contrib-jwt)
 [![Build Status](https://travis-ci.org/biancode/node-red-contrib-jwt.svg?branch=master)](https://travis-ci.org/biancode/node-red-contrib-jwt)
 
-[![nodemodbus64](images/jwt-icon-small64.png)](http://www.jwt.org/)
+[![nodejsonwebtoken](images/jwt-icon-small64.png)](https://jwt.io/)
 
 # node-red-contrib-jwt
 The JSON Web Token (JWT) toolbox package for Node-RED.
 
-!!! NOT READY TO USE - UNDER DEVELOPMENT - START YOUR CONTRIBUTION !!!
+!!! UNDER DEVELOPMENT - START YOUR CONTRIBUTION !!!
 ## [Support for the project straight away!][3]
 
 * based on jsonwebtoken library v8.x
@@ -71,6 +71,7 @@ I'd like to give special thanks to [AuthO][2] for the jwt package!
 
 
 [1]:https://bianco-royal.cloud/
-[2]:https://github.com/auth0
+[2]:https://github.com/auth0/
 [3]:https://bianco-royal.cloud/supporter/
-[4]:https://www.npmjs.com/package/jsonwebtoken
+[4]:https://www.npmjs.com/package/jsonwebtoken/
+[5]:https://jwt.io/
