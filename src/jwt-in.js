@@ -14,8 +14,10 @@ module.exports = function (RED) {
   function JWTInputNode (config) {
     RED.nodes.createNode(this, config)
     this.name = config.name
-    this.signature = config.signature
+    this.signature = config.signature || 'jwt'
+    this.tokenPayload = config.tokenPayload || 'Node-RED-JWT'
     this.entireMessage = config.entireMessage
+    this.selectedProperty = config.selectedProperty || 'token'
 
     let node = this
 
@@ -27,15 +29,15 @@ module.exports = function (RED) {
 
       try {
         if (node.entireMessage) {
-          msg = jwtLib.verify(msg, node.signature || 'jwt')
+          msg = jwtLib.verify(msg, node.signature)
         } else {
-          msg.payload = jwtLib.verify(msg.payload, node.signature || 'jwt')
+          msg[node.selectedProperty] = jwtLib.verify(msg[node.selectedProperty], node.signature)
         }
+
+        node.send(msg)
       } catch (err) {
         node.error(err, msg)
       }
-
-      node.send(msg)
     })
   }
 

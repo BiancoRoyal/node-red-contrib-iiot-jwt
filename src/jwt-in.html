@@ -13,6 +13,8 @@
     defaults: {
       name: {value: ""},
       signature: {value: ""},
+      tokenPayload: {value: ""},
+      selectedProperty: { value: "token" },
       entireMessage: {value: false}
     },
     inputs: 1,
@@ -36,6 +38,14 @@
     <div class="form-row">
         <label for="node-input-signature"><i class="fa fa-certificate"></i> <span data-i18n="jwt-contrib.label.signature"></span></label>
         <input type="text" id="node-input-signature" placeholder="jwt">
+    </div>
+    <div class="form-row">
+        <label for="node-input-tokenPayload"><i class="fa fa-connectdevelop"></i> <span data-i18n="jwt-contrib.label.tokenPayload"></span></label>
+        <input type="text" id="node-input-tokenPayload" placeholder="Node-RED-JWT">
+    </div>
+    <div class="form-row">
+        <label for="node-input-selectedProperty"><i class="fa fa-list"></i> <span data-i18n="jwt-contrib.label.property"></span></label>
+        <input type="text" id="node-input-selectedProperty" placeholder="token" />
     </div>
     <hr>
     <div class="form-row">

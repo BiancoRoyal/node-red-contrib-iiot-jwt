@@ -13,7 +13,7 @@
 var injectNode = require('node-red/nodes/core/core/20-inject.js')
 var inputNode = require('../src/jwt-in.js')
 var helper = require('./helper.js')
-var testFlow = [
+var testFlowPayload = [
   {
     "id": "n1",
     "type": "inject",
@@ -26,6 +26,26 @@ var testFlow = [
   {
     "id": "n3",
     "type": "JWT-IN",
+    "selectedProperty": "payload",
+    "wires": [["n4"]]
+  },
+  {id:"n4", type:"helper"}
+]
+
+var testFlowToken = [
+  {
+    "id": "n1",
+    "type": "inject",
+    "payload": "Test",
+    "payloadType": "str",
+    "once": true,
+    "wires": [["n2", "n3"]]
+  },
+  {id:"n2", type:"helper"},
+  {
+    "id": "n3",
+    "type": "JWT-IN",
+    "selectedProperty": "topic",
     "wires": [["n4"]]
   },
   {id:"n4", type:"helper"}
@@ -56,7 +76,7 @@ describe('JWT In node Testing', function () {
     })
 
     it('should get a message', function(done) {
-      helper.load([injectNode, inputNode], testFlow, function() {
+      helper.load([injectNode, inputNode], testFlowPayload, function() {
         let n2 = helper.getNode("n2")
         n2.on("input", function(msg) {
           msg.should.have.property('payload', 'eyJhbGciOiJIUzI1NiJ9.VGVzdA.QrGSd49pBydy_lJuAiCbNVG7_F6inUTJub7k_FpW7Tk')
@@ -66,7 +86,7 @@ describe('JWT In node Testing', function () {
     })
 
     it('should verify a message', function(done) {
-      helper.load([injectNode, inputNode], testFlow, function() {
+      helper.load([injectNode, inputNode], testFlowPayload, function() {
         let n4 = helper.getNode("n4")
         n4.on("input", function(msg) {
           msg.should.have.property('payload', 'Test');

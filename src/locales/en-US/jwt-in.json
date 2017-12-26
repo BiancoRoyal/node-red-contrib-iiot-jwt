@@ -3,6 +3,8 @@
     "label": {
       "signature": "signature",
       "cert": "Certificate",
+      "property": "Property",
+      "tokenPayload": "Token Payload",
       "entireMessage": "Sign Entire Message",
       "showActivities": "Show Activities",
       "showErrors": "Show Errors"
