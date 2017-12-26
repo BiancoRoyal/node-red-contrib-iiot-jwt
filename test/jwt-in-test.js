@@ -10,10 +10,28 @@
 
 'use strict'
 
+var injectNode = require('node-red/nodes/core/core/20-inject.js')
 var inputNode = require('../src/jwt-in.js')
 var helper = require('./helper.js')
+var testFlow = [
+  {
+    "id": "n1",
+    "type": "inject",
+    "payload": "eyJhbGciOiJIUzI1NiJ9.VGVzdA.QrGSd49pBydy_lJuAiCbNVG7_F6inUTJub7k_FpW7Tk",
+    "payloadType": "str",
+    "once": true,
+    "wires": [["n2", "n3"]]
+  },
+  {id:"n2", type:"helper"},
+  {
+    "id": "n3",
+    "type": "JWT-IN",
+    "wires": [["n4"]]
+  },
+  {id:"n4", type:"helper"}
+]
 
-describe('Read node Testing', function () {
+describe('JWT In node Testing', function () {
   before(function (done) {
     helper.startServer(done)
   })
@@ -23,7 +41,7 @@ describe('Read node Testing', function () {
   })
 
   describe('Node', function () {
-    it('simple read node should be loaded', function (done) {
+    it('node should be loaded', function (done) {
       helper.load([inputNode], [
         {"id":"1701afa1.842a7","type":"JWT-IN","z":"a0c278ae.d0f6f8","name":"jwtInput","signature":"","x":640,"y":280,"wires":[[]]}
       ], function () {
@@ -34,6 +52,26 @@ describe('Read node Testing', function () {
         done()
       }, function () {
         helper.log('function callback')
+      })
+    })
+
+    it('should get a message', function(done) {
+      helper.load([injectNode, inputNode], testFlow, function() {
+        let n2 = helper.getNode("n2")
+        n2.on("input", function(msg) {
+          msg.should.have.property('payload', 'eyJhbGciOiJIUzI1NiJ9.VGVzdA.QrGSd49pBydy_lJuAiCbNVG7_F6inUTJub7k_FpW7Tk')
+          done()
+        })
+      })
+    })
+
+    it('should verify a message', function(done) {
+      helper.load([injectNode, inputNode], testFlow, function() {
+        let n4 = helper.getNode("n4")
+        n4.on("input", function(msg) {
+          msg.should.have.property('payload', 'Test');
+          done()
+        })
       })
     })
   })

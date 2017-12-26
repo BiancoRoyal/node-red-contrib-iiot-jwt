@@ -25,11 +25,16 @@ module.exports = function (RED) {
       // sign with default (HMAC SHA256)
       jwtCore.internalDebugLog('Sign Message HMAC SHA256')
 
-      if (node.entireMessage) {
-        msg = jwtLib.sign(msg, node.signature || 'jwt')
-      } else {
-        msg.payload = jwtLib.sign(msg.payload, node.signature || 'jwt')
+      try {
+        if (node.entireMessage) {
+          msg = jwtLib.sign(msg, node.signature || 'jwt')
+        } else {
+          msg.payload = jwtLib.sign(msg.payload, node.signature || 'jwt')
+        }
+      } catch (err) {
+        node.error(err, msg)
       }
+
       node.send(msg)
     })
   }
