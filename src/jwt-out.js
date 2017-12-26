@@ -10,10 +10,12 @@
 module.exports = function (RED) {
   const jwtCore = require('./core/jwt-core')
   const jwtLib = require('jsonwebtoken')
+  const fs = require('fs')
 
   function JWTOutputNode (config) {
     RED.nodes.createNode(this, config)
     this.name = config.name
+    this.algoType = config.algoType || 'HASH'
     this.signature = config.signature || 'jwt'
     this.tokenPayload = config.tokenPayload || 'Node-RED-JWT'
     this.tokenExpires = config.tokenExpires
@@ -21,10 +23,15 @@ module.exports = function (RED) {
     this.expiresInUnit = config.expiresInUnit || 's'
     this.entireMessage = config.entireMessage
     this.selectedProperty = config.selectedProperty || 'token'
+    this.privateKeyFile = config.privateKeyFile || null
 
     let node = this
 
     node.status({fill: 'green', shape: 'dot', text: 'active'})
+
+    if (node.algoType === 'FILE') {
+      node.cert = fs.readFileSync(node.privateKeyFile)
+    }
 
     node.calcExpiresInByUnit = function (value, unit) {
       let result = 1000
@@ -49,16 +56,16 @@ module.exports = function (RED) {
       return result
     }
 
-    node.on('input', function (msg) {
-      // sign with default (HMAC SHA256)
-      jwtCore.internalDebugLog('Sign Message HMAC SHA256')
+    node.jwtSign = function (msg, signature) {
+      // TODO: Algo
+      jwtCore.internalDebugLog('Sign Message ' + node.algoType)
 
       try {
         if (node.entireMessage) {
           if (node.tokenExpires) {
-            msg = jwtLib.sign({ data: msg }, node.signature, { expiresIn: node.calcExpiresInByUnit(node.expiresIn, node.expiresInUnit) })
+            msg = jwtLib.sign({ data: msg }, signature, { expiresIn: node.calcExpiresInByUnit(node.expiresIn, node.expiresInUnit) })
           } else {
-            msg = jwtLib.sign(msg, node.signature)
+            msg = jwtLib.sign(msg, signature)
           }
         } else {
           if (!msg[node.selectedProperty]) {
@@ -66,9 +73,9 @@ module.exports = function (RED) {
           }
 
           if (node.tokenExpires) {
-            msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, node.signature, { expiresIn: node.calcExpiresInByUnit(node.expiresIn, node.expiresInUnit) })
+            msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, signature, { expiresIn: node.calcExpiresInByUnit(node.expiresIn, node.expiresInUnit) })
           } else {
-            msg[node.selectedProperty] = jwtLib.sign(msg[node.selectedProperty], node.signature)
+            msg[node.selectedProperty] = jwtLib.sign(msg[node.selectedProperty], signature)
           }
         }
 
@@ -76,8 +83,22 @@ module.exports = function (RED) {
       } catch (err) {
         node.error(err, msg)
       }
+    }
+
+    node.on('input', function (msg) {
+      switch (node.algoType) {
+        case 'FILE':
+          node.jwtSign(msg, node.cert)
+          break
+        default:
+          node.jwtSign(msg, node.signature)
+      }
     })
   }
 
   RED.nodes.registerType('JWT-OUT', JWTOutputNode)
+
+  RED.httpAdmin.get('/jwt/algo/types', RED.auth.needsPermission('jwt.algo.types'), function (req, res) {
+    res.json(['HMAC', 'RSA', 'ECDSA', 'none'])
+  })
 }

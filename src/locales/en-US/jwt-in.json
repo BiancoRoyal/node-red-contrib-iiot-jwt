@@ -2,10 +2,12 @@
   "jwt-contrib": {
     "label": {
       "signature": "signature",
+      "algoType": "Verify By",
       "cert": "Certificate",
       "property": "Property",
       "tokenPayload": "Token Payload",
-      "entireMessage": "Sign Entire Message",
+      "publicKeyFile": "Public Key",
+      "entireMessage": "Verify Entire Message",
       "showActivities": "Show Activities",
       "showErrors": "Show Errors"
     }

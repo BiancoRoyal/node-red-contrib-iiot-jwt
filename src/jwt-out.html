@@ -13,7 +13,9 @@
     color: "#6beee5",
     defaults: {
       name: {value: ""},
+      algoType: {value: "HASH"},
       signature: {value: ""},
+      privateKeyFile: {value: ""},
       tokenPayload: {value: ""},
       selectedProperty: {value: ""},
       tokenExpires: {value: false},
@@ -40,7 +42,6 @@
       return this.name ? "node_label_italic" : "";
     },
     oneditprepare: function () {
-
       let tokenExpiresCheckbox = $("#node-input-tokenExpires")
       let epiresRow = $("#epiresRow")
 
@@ -51,6 +52,28 @@
           epiresRow.hide();
         }
       });
+
+      let algoTypeSelector = $('#node-input-algoType')
+      let hashSignRowSelector = $('#hashSignRow')
+      let fileSignRowSelector = $('#fileSignRow')
+      let previous = null
+
+      algoTypeSelector.on('focus', function () {
+        previous = this.value
+      }).change(function () {
+        if (previous === null) {
+          previous = $("#node-input-algoType").val()
+        }
+
+        if(algoTypeSelector.val() === 'FILE') {
+          hashSignRowSelector.hide()
+          fileSignRowSelector.show()
+        } else {
+          hashSignRowSelector.show()
+          fileSignRowSelector.hide()
+        }
+
+      })
     }
   });
 </script>
@@ -60,9 +83,20 @@
         <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
         <input type="text" id="node-input-name" placeholder="">
     </div>
-    <div class="form-row">
+    <div class="form-row" id="algoTypeRow">
+        <label for="node-input-algoType"><i class="icon-list"></i> <span data-i18n="jwt-contrib.label.algoType"></span></label>
+        <select id="node-input-algoType" style="max-width:200px">
+            <option value="HASH">HASH</option>
+            <option value="FILE">FILE</option>
+        </select>
+    </div>
+    <div class="form-row" id="hashSignRow">
         <label for="node-input-signature"><i class="fa fa-certificate"></i> <span data-i18n="jwt-contrib.label.signature"></span></label>
         <input type="text" id="node-input-signature" placeholder="jwt">
+    </div>
+    <div class="form-row" id="fileSignRow">
+        <label for="node-input-privateKeyFile"><i class="fa fa-certificate"></i> <span data-i18n="jwt-contrib.label.privateKeyFile"></span></label>
+        <input type="text" id="node-input-privateKeyFile" placeholder="$HOME/.ssh/keys/privateJWT.key">
     </div>
     <div class="form-row">
         <label for="node-input-tokenPayload"><i class="fa fa-connectdevelop"></i> <span data-i18n="jwt-contrib.label.tokenPayload"></span></label>

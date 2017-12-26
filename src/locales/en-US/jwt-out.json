@@ -1,11 +1,13 @@
 {
   "jwt-contrib": {
     "label": {
+      "algoType": "Sign By",
       "signature": "signature",
       "cert": "Certificate",
       "tokenExpires": "Expires",
       "selectedProperty": "Property",
       "tokenPayload": "Token Payload",
+      "privateKeyFile": "Private Key",
       "expiresIn": "Expires In",
       "entireMessage": "Sign Entire Message",
       "showActivities": "Show Activities",
