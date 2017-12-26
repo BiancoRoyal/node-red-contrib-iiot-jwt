@@ -26,25 +26,27 @@ module.exports = function (RED) {
 
     node.status({fill: 'green', shape: 'dot', text: 'active'})
 
-    node.calcExpiresInByUnit = function (rate, rateUnit) {
-      switch (rateUnit) {
+    node.calcExpiresInByUnit = function (value, unit) {
+      let result = 1000
+
+      switch (unit) {
         case 'ms':
           break
         case 's':
-          rate = parseInt(rate) * 1000 // seconds
+          result = parseInt(value) * 1000 // seconds
           break
         case 'm':
-          rate = parseInt(rate) * 60000 // minutes
+          result = parseInt(value) * 60000 // minutes
           break
         case 'h':
-          rate = parseInt(rate) * 3600000 // hours
+          result = parseInt(value) * 3600000 // hours
           break
         default:
-          rate = 10000 // 10 sec.
+          result = 10000 // 10 sec.
           break
       }
 
-      return Math.floor(Date.now() / 1000) + rate
+      return result
     }
 
     node.on('input', function (msg) {
@@ -54,10 +56,7 @@ module.exports = function (RED) {
       try {
         if (node.entireMessage) {
           if (node.tokenExpires) {
-            msg = jwtLib.sign({
-              exp: node.calcExpiresInByUnit(node.expiresIn, node.expiresInUnit),
-              data: msg
-            }, node.signature)
+            msg = jwtLib.sign({ data: msg }, node.signature, { expiresIn: node.calcExpiresInByUnit(node.expiresIn, node.expiresInUnit) })
           } else {
             msg = jwtLib.sign(msg, node.signature)
           }
@@ -67,10 +66,7 @@ module.exports = function (RED) {
           }
 
           if (node.tokenExpires) {
-            msg[node.selectedProperty] = jwtLib.sign({
-              exp: node.calcExpiresInByUnit(node.expiresIn, node.expiresInUnit),
-              data: msg[node.selectedProperty]
-            }, node.signature)
+            msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, node.signature, { expiresIn: node.calcExpiresInByUnit(node.expiresIn, node.expiresInUnit) })
           } else {
             msg[node.selectedProperty] = jwtLib.sign(msg[node.selectedProperty], node.signature)
           }
