@@ -3,8 +3,10 @@
     "label": {
       "signature": "signature",
       "cert": "Certificate",
-      "property": "Property",
+      "tokenExpires": "Expires",
+      "selectedProperty": "Property",
       "tokenPayload": "Token Payload",
+      "expiresIn": "Expires In",
       "entireMessage": "Sign Entire Message",
       "showActivities": "Show Activities",
       "showErrors": "Show Errors"

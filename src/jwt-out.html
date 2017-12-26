@@ -2,6 +2,7 @@
  The MIT License
 
  Copyright (c) 2017 - Klaus Landsdorf (http://bianco-royal.de/)
+ Copyright (c) 2017 IBM Corp. (node-red)
  All rights reserved.
  node-red-contrib-iiot-jwt
 -->
@@ -14,6 +15,18 @@
       name: {value: ""},
       signature: {value: ""},
       tokenPayload: {value: ""},
+      selectedProperty: {value: ""},
+      tokenExpires: {value: false},
+      expiresIn: {
+        value: 60, validate: function (v) {
+          return v > 0
+        }
+      },
+      expiresInUnit: {
+        value: "s", validate: function (v) {
+          return "ms" == v || "s" == v || "m" == v || "h" == v
+        }
+      },
       entireMessage: {value: false}
     },
     inputs: 1,
@@ -25,6 +38,19 @@
     },
     labelStyle: function () {
       return this.name ? "node_label_italic" : "";
+    },
+    oneditprepare: function () {
+
+      let tokenExpiresCheckbox = $("#node-input-tokenExpires")
+      let epiresRow = $("#epiresRow")
+
+      tokenExpiresCheckbox.change(function () {
+        if ($(this).is(":checked")) {
+          epiresRow.show();
+        } else {
+          epiresRow.hide();
+        }
+      });
     }
   });
 </script>
@@ -43,8 +69,23 @@
         <input type="text" id="node-input-tokenPayload" placeholder="Node-RED-JWT">
     </div>
     <div class="form-row">
-        <label for="node-input-selectedProperty"><i class="fa fa-list"></i> <span data-i18n="jwt-contrib.label.property"></span></label>
+        <label for="node-input-selectedProperty"><i class="fa fa-list"></i> <span data-i18n="jwt-contrib.label.selectedProperty"></span></label>
         <input type="text" id="node-input-selectedProperty" placeholder="token" />
+    </div>
+    <div class="form-row">
+        <label style="min-width:160px" for="node-input-tokenExpires"><i class="fa fa-clock-o"></i> <span
+        data-i18n="jwt-contrib.label.tokenExpires"></span></label>
+        <input type="checkbox" id="node-input-tokenExpires" style="max-width:30px">
+    </div>
+    <div class="form-row" id="epiresRow">
+        <label for="node-input-expiresIn"><i class="icon-bookmark"></i> <span data-i18n="jwt-contrib.label.expiresIn"></span></label>
+        <input type="number" id="node-input-expiresIn" placeholder="60" style="max-width:120px">
+        <select id="node-input-expiresInUnit" style="max-width:160px">
+            <option value="ms">millisecond(s)</option>
+            <option value="s">second(s)</option>
+            <option value="m">minute(s)</option>
+            <option value="h">hour(s)</option>
+        </select>
     </div>
     <hr>
     <div class="form-row">

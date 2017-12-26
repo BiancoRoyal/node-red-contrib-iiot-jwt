@@ -31,10 +31,10 @@ var testFlowPayload = [
     "id": "f348091d.d27b6",
     "type": "JWT-OUT",
     "z": "a0c278ae.d0f6f8",
-    "name": "",
-    "signature": "",
     "entireMessage": false,
     "selectedProperty": "payload",
+    "expiresIn":"60",
+    "expiresInUnit":"s",
     "wires": [
       [
         "n2"
@@ -63,9 +63,9 @@ var testFlowToken = [
     "id": "f348091d.d27b6",
     "type": "JWT-OUT",
     "z": "a0c278ae.d0f6f8",
-    "name": "",
-    "signature": "",
     "entireMessage": false,
+    "expiresIn":"60",
+    "expiresInUnit":"s",
     "wires": [
       [
         "n2"
@@ -130,6 +130,7 @@ describe('JWT Out node Testing', function () {
       helper.load([injectNode, outputNode], testFlowToken, function() {
         let n2 = helper.getNode("n2")
         n2.on("input", function(msg) {
+
           msg.should.have.property('token', 'eyJhbGciOiJIUzI1NiJ9.Tm9kZS1SRUQtSldU.-5uQr1GLmUwjw2b1DF8gWptQ3C1TKGppSBu5sV-MPEk');
           done()
         })

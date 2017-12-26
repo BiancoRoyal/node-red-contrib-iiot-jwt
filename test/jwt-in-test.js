@@ -10,7 +10,8 @@
 
 'use strict'
 
-var injectNode = require('node-red/nodes/core/core/20-inject.js')
+var injectNode = require('node-red/nodes/core/core/20-inject')
+var functionNode = require('node-red/nodes/core/core/80-function')
 var inputNode = require('../src/jwt-in.js')
 var helper = require('./helper.js')
 var testFlowPayload = [
@@ -41,14 +42,17 @@ var testFlowToken = [
     "once": true,
     "wires": [["n2", "n3"]]
   },
-  {id:"n2", type:"helper"},
-  {
-    "id": "n3",
-    "type": "JWT-IN",
-    "selectedProperty": "topic",
-    "wires": [["n4"]]
+  {"id":"n2","type":"function",
+    "func":"msg.token = 'eyJhbGciOiJIUzI1NiJ9.Tm9kZS1SRUQtSldU.-5uQr1GLmUwjw2b1DF8gWptQ3C1TKGppSBu5sV-MPEk';\nreturn msg;",
+    "outputs":1,"noerr":0,"wires":[["n3", "n4"]]
   },
-  {id:"n4", type:"helper"}
+  {id:"n3", type:"helper"},
+  {
+    "id": "n4",
+    "type": "JWT-IN",
+    "wires": [["n5"]]
+  },
+  {id:"n5", type:"helper"}
 ]
 
 describe('JWT In node Testing', function () {
@@ -63,7 +67,12 @@ describe('JWT In node Testing', function () {
   describe('Node', function () {
     it('node should be loaded', function (done) {
       helper.load([inputNode], [
-        {"id":"1701afa1.842a7","type":"JWT-IN","z":"a0c278ae.d0f6f8","name":"jwtInput","signature":"","x":640,"y":280,"wires":[[]]}
+        {
+          "id":"1701afa1.842a7",
+          "type":"JWT-IN",
+          "name":"jwtInput",
+          "wires":[[]]
+        }
       ], function () {
 
         var nodeUnderTest = helper.getNode('1701afa1.842a7')
@@ -90,6 +99,16 @@ describe('JWT In node Testing', function () {
         let n4 = helper.getNode("n4")
         n4.on("input", function(msg) {
           msg.should.have.property('payload', 'Test');
+          done()
+        })
+      })
+    })
+
+    it('should have a verified token', function(done) {
+      helper.load([injectNode, functionNode, inputNode], testFlowToken, function() {
+        let n5 = helper.getNode("n5")
+        n5.on("input", function(msg) {
+          msg.should.have.property('token', 'Node-RED-JWT');
           done()
         })
       })
