@@ -1,334 +1,118 @@
 [
   {
-    "id": "2bd7f775.165808",
+    "id": "2426bc1d.8e2614",
     "type": "tab",
     "label": "JWT Message",
     "disabled": false,
     "info": ""
   },
   {
-    "id": "9df75223.ee913",
+    "id": "e712e08c.f1feb",
     "type": "JWT-OUT",
-    "z": "2bd7f775.165808",
-    "name": "JWT OUT MSG",
+    "z": "2426bc1d.8e2614",
+    "name": "",
+    "algoType": "HASH",
     "signature": "",
+    "algoHash": "HS256",
+    "privateKeyFile": "",
+    "algoFile": "RS256",
     "tokenPayload": "",
-    "expiresIn": "60",
-    "expiresInUnit": "s",
+    "selectedProperty": "",
     "entireMessage": false,
+    "showErrors": false,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "tokenExpires": false,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": false,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
     "x": 320,
-    "y": 100,
+    "y": 140,
     "wires": [
       [
-        "f9fb628e.592728",
-        "7b12f39b.9348fc"
+        "223c0a40.ea0026",
+        "19739fc0.9139c8"
       ]
     ]
   },
   {
-    "id": "23f3b3b6.c136cc",
+    "id": "a731e754.f6fca8",
     "type": "inject",
-    "z": "2bd7f775.165808",
+    "z": "2426bc1d.8e2614",
     "name": "",
     "topic": "",
-    "payload": "Test",
+    "payload": "test message",
     "payloadType": "str",
     "repeat": "",
     "crontab": "",
-    "once": false,
-    "x": 110,
-    "y": 100,
+    "once": true,
+    "x": 160,
+    "y": 140,
     "wires": [
       [
-        "aafe572a.75e12",
-        "9df75223.ee913"
+        "e712e08c.f1feb"
       ]
     ]
   },
   {
-    "id": "aafe572a.75e12",
+    "id": "223c0a40.ea0026",
     "type": "debug",
-    "z": "2bd7f775.165808",
+    "z": "2426bc1d.8e2614",
     "name": "",
     "active": true,
     "console": "false",
     "complete": "true",
-    "x": 290,
-    "y": 60,
+    "x": 490,
+    "y": 100,
     "wires": []
   },
   {
-    "id": "e87a00ce.658ec",
+    "id": "19739fc0.9139c8",
+    "type": "JWT-IN",
+    "z": "2426bc1d.8e2614",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "publicKeyFile": "",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": false,
+    "showErrors": false,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": 1,
+    "clockToleranceUnit": "s",
+    "useMaxAge": false,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 500,
+    "y": 140,
+    "wires": [
+      [
+        "d161b4c0.144b3"
+      ]
+    ]
+  },
+  {
+    "id": "d161b4c0.144b3",
     "type": "debug",
-    "z": "2bd7f775.165808",
+    "z": "2426bc1d.8e2614",
     "name": "",
     "active": true,
     "console": "false",
     "complete": "true",
     "x": 650,
-    "y": 100,
+    "y": 140,
     "wires": []
-  },
-  {
-    "id": "f9fb628e.592728",
-    "type": "JWT-IN",
-    "z": "2bd7f775.165808",
-    "name": "JWT IN MSG",
-    "signature": "",
-    "tokenPayload": "",
-    "selectedProperty": "",
-    "entireMessage": false,
-    "x": 510,
-    "y": 100,
-    "wires": [
-      [
-        "e87a00ce.658ec"
-      ]
-    ]
-  },
-  {
-    "id": "7b12f39b.9348fc",
-    "type": "debug",
-    "z": "2bd7f775.165808",
-    "name": "",
-    "active": true,
-    "console": "false",
-    "complete": "true",
-    "x": 490,
-    "y": 60,
-    "wires": []
-  },
-  {
-    "id": "714bee34.80017",
-    "type": "inject",
-    "z": "2bd7f775.165808",
-    "name": "",
-    "topic": "",
-    "payload": "Test",
-    "payloadType": "str",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 110,
-    "y": 220,
-    "wires": [
-      [
-        "d94c8de.18840f",
-        "1e842154.52e067"
-      ]
-    ]
-  },
-  {
-    "id": "d94c8de.18840f",
-    "type": "JWT-OUT",
-    "z": "2bd7f775.165808",
-    "name": "JWT OUT MSG",
-    "signature": "",
-    "tokenPayload": "",
-    "expiresIn": "60",
-    "expiresInUnit": "s",
-    "entireMessage": false,
-    "x": 320,
-    "y": 220,
-    "wires": [
-      [
-        "647786dd.7a62"
-      ]
-    ]
-  },
-  {
-    "id": "a1106cea.cc3778",
-    "type": "inject",
-    "z": "2bd7f775.165808",
-    "name": "",
-    "topic": "",
-    "payload": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfbXNnaWQiOiJhOWIwNjVjMS42MDliMDgiLCJ0b3BpYyI6IiIsInBheWxvYWQiOiJUZXN0IiwiaWF0IjoxNTE0Mjg4NDQwfQ.6SKNJE0N7X_konkPRp0gdyKy59xBigpOwClxuWex-Mw",
-    "payloadType": "str",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 110,
-    "y": 320,
-    "wires": [
-      [
-        "21d1fe82.35010a",
-        "8229c7b6.e6f048"
-      ]
-    ]
-  },
-  {
-    "id": "5ec0a994.0e0448",
-    "type": "JWT-IN",
-    "z": "2bd7f775.165808",
-    "name": "JWT IN MSG",
-    "signature": "",
-    "tokenPayload": "",
-    "selectedProperty": "",
-    "entireMessage": false,
-    "x": 450,
-    "y": 320,
-    "wires": [
-      [
-        "4e4eb37b.201ecc"
-      ]
-    ]
-  },
-  {
-    "id": "1e842154.52e067",
-    "type": "debug",
-    "z": "2bd7f775.165808",
-    "name": "",
-    "active": true,
-    "console": "false",
-    "complete": "true",
-    "x": 290,
-    "y": 180,
-    "wires": []
-  },
-  {
-    "id": "647786dd.7a62",
-    "type": "debug",
-    "z": "2bd7f775.165808",
-    "name": "",
-    "active": true,
-    "console": "false",
-    "complete": "true",
-    "x": 490,
-    "y": 220,
-    "wires": []
-  },
-  {
-    "id": "21d1fe82.35010a",
-    "type": "debug",
-    "z": "2bd7f775.165808",
-    "name": "",
-    "active": true,
-    "console": "false",
-    "complete": "true",
-    "x": 290,
-    "y": 280,
-    "wires": []
-  },
-  {
-    "id": "4e4eb37b.201ecc",
-    "type": "debug",
-    "z": "2bd7f775.165808",
-    "name": "",
-    "active": true,
-    "console": "false",
-    "complete": "true",
-    "x": 590,
-    "y": 320,
-    "wires": []
-  },
-  {
-    "id": "9a2b5265.2c865",
-    "type": "JWT-OUT",
-    "z": "2bd7f775.165808",
-    "name": "JWT OUT MSG",
-    "signature": "",
-    "tokenPayload": "",
-    "selectedProperty": "",
-    "tokenExpires": true,
-    "expiresIn": "60",
-    "expiresInUnit": "s",
-    "entireMessage": true,
-    "x": 320,
-    "y": 480,
-    "wires": [
-      [
-        "f07453e8.f9957",
-        "cb5aae12.9a4e58"
-      ]
-    ]
-  },
-  {
-    "id": "bc2a9c2a.9d0538",
-    "type": "inject",
-    "z": "2bd7f775.165808",
-    "name": "",
-    "topic": "",
-    "payload": "Test",
-    "payloadType": "str",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "x": 110,
-    "y": 480,
-    "wires": [
-      [
-        "512268b7.22d5a8",
-        "9a2b5265.2c865"
-      ]
-    ]
-  },
-  {
-    "id": "512268b7.22d5a8",
-    "type": "debug",
-    "z": "2bd7f775.165808",
-    "name": "",
-    "active": true,
-    "console": "false",
-    "complete": "true",
-    "x": 290,
-    "y": 440,
-    "wires": []
-  },
-  {
-    "id": "a8baf102.54c9c8",
-    "type": "debug",
-    "z": "2bd7f775.165808",
-    "name": "",
-    "active": true,
-    "console": "false",
-    "complete": "true",
-    "x": 650,
-    "y": 480,
-    "wires": []
-  },
-  {
-    "id": "f07453e8.f9957",
-    "type": "JWT-IN",
-    "z": "2bd7f775.165808",
-    "name": "JWT IN MSG",
-    "signature": "",
-    "tokenPayload": "",
-    "selectedProperty": "",
-    "entireMessage": true,
-    "x": 510,
-    "y": 480,
-    "wires": [
-      [
-        "a8baf102.54c9c8"
-      ]
-    ]
-  },
-  {
-    "id": "cb5aae12.9a4e58",
-    "type": "debug",
-    "z": "2bd7f775.165808",
-    "name": "",
-    "active": true,
-    "console": "false",
-    "complete": "true",
-    "x": 490,
-    "y": 440,
-    "wires": []
-  },
-  {
-    "id": "8229c7b6.e6f048",
-    "type": "function",
-    "z": "2bd7f775.165808",
-    "name": "msg token",
-    "func": "msg.token = 'eyJhbGciOiJIUzI1NiJ9.Tm9kZS1SRUQtSldU.-5uQr1GLmUwjw2b1DF8gWptQ3C1TKGppSBu5sV-MPEk'\nreturn msg;",
-    "outputs": 1,
-    "noerr": 0,
-    "x": 290,
-    "y": 320,
-    "wires": [
-      [
-        "5ec0a994.0e0448"
-      ]
-    ]
   }
 ]

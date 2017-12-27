@@ -1,17 +1,36 @@
 {
-  "jwt-contrib": {
+  "jwt-iiot-contrib": {
     "label": {
       "algoType": "Sign By",
+      "algo": "Algorithm",
       "signature": "signature",
       "cert": "Certificate",
-      "tokenExpires": "Expires",
+      "privateKeyFile": "Private Key",
       "selectedProperty": "Property",
       "tokenPayload": "Token Payload",
-      "privateKeyFile": "Private Key",
-      "expiresIn": "Expires In",
       "entireMessage": "Sign Entire Message",
+      "useOptions": "Use Optionals",
       "showActivities": "Show Activities",
       "showErrors": "Show Errors"
+    },
+    "options" : {
+      "issuer": "Issuer (iss)",
+      "subject": "Subject (sub)",
+      "audience": "Audience (aud)",
+      "tokenExpires": "Expires In",
+      "expiresIn": "Expiration Time (exp)",
+      "tokenNotBefore": "Not Before",
+      "notBefore": "Not Before (nbf)",
+      "issuedAt": "Issued At (iat)",
+      "jwtId": "JWT ID (jti)"
+    },
+    "header": {
+      "type": "Type (typ)",
+      "contentType": "Content Type (cty)"
+    },
+    "tabs-label": {
+      "token": "Token",
+      "options": "Optionals"
     }
   }
 }

@@ -11,19 +11,39 @@ module.exports = function (RED) {
   const jwtCore = require('./core/jwt-core')
   const jwtLib = require('jsonwebtoken')
   const fs = require('fs')
+  let ObjectID = require('bson').ObjectID
 
   function JWTOutputNode (config) {
     RED.nodes.createNode(this, config)
     this.name = config.name
     this.algoType = config.algoType || 'HASH'
+
     this.signature = config.signature || 'jwt'
+    this.algoHash = config.algoHash || 'HS256'
+
+    this.privateKeyFile = config.privateKeyFile || null
+    this.algoFile = config.algoFile || 'RS256'
+
     this.tokenPayload = config.tokenPayload || 'Node-RED-JWT'
+    this.selectedProperty = config.selectedProperty || 'token'
+
+    this.useOptions = config.useOptions
+    this.entireMessage = config.entireMessage
+    this.showErrors = config.showErrors
+
+    // options
+    this.issuer = config.issuer || ''
+    this.subject = config.subject || ''
+    this.audience = config.audience || ''
+    this.jwtid = config.jwtid || ''
+
     this.tokenExpires = config.tokenExpires
     this.expiresIn = config.expiresIn || 60
     this.expiresInUnit = config.expiresInUnit || 's'
-    this.entireMessage = config.entireMessage
-    this.selectedProperty = config.selectedProperty || 'token'
-    this.privateKeyFile = config.privateKeyFile || null
+
+    this.tokenNotBefore = config.tokenNotBefore
+    this.notBefore = config.notBefore || 1
+    this.notBeforeUnit = config.notBeforeUnit || 's'
 
     let node = this
 
@@ -33,64 +53,104 @@ module.exports = function (RED) {
       node.cert = fs.readFileSync(node.privateKeyFile)
     }
 
-    node.calcExpiresInByUnit = function (value, unit) {
-      let result = 1000
-
-      switch (unit) {
-        case 'ms':
-          break
-        case 's':
-          result = parseInt(value) * 1000 // seconds
-          break
-        case 'm':
-          result = parseInt(value) * 60000 // minutes
-          break
-        case 'h':
-          result = parseInt(value) * 3600000 // hours
-          break
-        default:
-          result = 10000 // 10 sec.
-          break
+    node.fillWithOptions = function (msg, options) {
+      if (msg.jwt && msg.jwt.options) {
+        options.issuer = msg.jwt.options.issuer || node.issuer
+        options.subject = msg.jwt.options.subject || node.subject
+        options.audience = msg.jwt.options.audience || node.audience
+        options.jwtid = msg.jwt.options.jwtid || node.jwtid
+      } else {
+        options.issuer = node.issuer
+        options.subject = node.subject
+        options.audience = node.audience
+        options.jwtid = node.jwtid
       }
 
-      return result
+      if (node.tokenExpires) {
+        options.expiresIn = jwtCore.calcSecondsByUnit(node.expiresIn, node.expiresInUnit)
+      }
+
+      if (node.tokenNotBefore) {
+        options.notBefore = jwtCore.calcSecondsByUnit(node.notBefore, node.notBeforeUnit)
+      }
+
+      return options
+    }
+
+    node.getSignOptions = function (msg) {
+      let algo = (node.algoType === 'FILE') ? node.algoFile : node.algoHash
+
+      let options = {
+        algorithm: algo
+      }
+
+      return node.fillWithOptions(msg, options)
+    }
+
+    node.getUnsignedOptions = function (msg) {
+      let options = {
+        algorithm: 'none'
+      }
+
+      return node.fillWithOptions(msg, options)
+    }
+
+    node.handleError = function (err, msg) {
+      if (node.showErrors) {
+        node.error(err, msg)
+      }
+      jwtCore.internalDebugLog(err.message)
     }
 
     node.jwtSign = function (msg, signature) {
-      // TODO: Algo
-      jwtCore.internalDebugLog('Sign Message ' + node.algoType)
-
       try {
         if (node.entireMessage) {
-          if (node.tokenExpires) {
-            msg = jwtLib.sign({ data: msg }, signature, { expiresIn: node.calcExpiresInByUnit(node.expiresIn, node.expiresInUnit) })
-          } else {
-            msg = jwtLib.sign(msg, signature)
-          }
+          msg = jwtLib.sign({ data: msg }, signature, (node.useOptions) ? node.getSignOptions(msg) : {})
         } else {
           if (!msg[node.selectedProperty]) {
             msg[node.selectedProperty] = node.tokenPayload
           }
 
-          if (node.tokenExpires) {
-            msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, signature, { expiresIn: node.calcExpiresInByUnit(node.expiresIn, node.expiresInUnit) })
-          } else {
-            msg[node.selectedProperty] = jwtLib.sign(msg[node.selectedProperty], signature)
-          }
+          msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, signature, (node.useOptions) ? node.getSignOptions(msg) : {})
         }
 
         node.send(msg)
       } catch (err) {
-        node.error(err, msg)
+        node.handleError(err, msg)
+      }
+    }
+
+    node.jwtUnsigned = function (msg) {
+      jwtCore.internalDebugLog('Unsigned Message')
+
+      try {
+        if (node.entireMessage) {
+          msg = jwtLib.sign({ data: msg }, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
+        } else {
+          if (!msg[node.selectedProperty]) {
+            msg[node.selectedProperty] = node.tokenPayload
+          }
+
+          msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
+        }
+
+        node.send(msg)
+      } catch (err) {
+        node.handleError(err, msg)
       }
     }
 
     node.on('input', function (msg) {
       switch (node.algoType) {
         case 'FILE':
+          jwtCore.internalDebugLog('Sign Message With File ' + node.privateKeyFile + ' And Algorithm ' + node.algoFile)
           node.jwtSign(msg, node.cert)
           break
+        case 'NONE':
+          node.jwtUnsigned(msg)
+          break
         default:
+          jwtCore.internalDebugLog('Sign Message With Hash Algorithm ' + node.algoHash)
           node.jwtSign(msg, node.signature)
       }
     })
@@ -98,7 +158,7 @@ module.exports = function (RED) {
 
   RED.nodes.registerType('JWT-OUT', JWTOutputNode)
 
-  RED.httpAdmin.get('/jwt/algo/types', RED.auth.needsPermission('jwt.algo.types'), function (req, res) {
-    res.json(['HMAC', 'RSA', 'ECDSA', 'none'])
+  RED.httpAdmin.get('/jwt/object/getid', RED.auth.needsPermission('jwt.object.getid'), function (req, res) {
+    res.json(new ObjectID())
   })
 }

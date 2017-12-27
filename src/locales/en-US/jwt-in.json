@@ -1,5 +1,5 @@
 {
-  "jwt-contrib": {
+  "jwt-iiot-contrib": {
     "label": {
       "signature": "signature",
       "algoType": "Verify By",
@@ -7,9 +7,31 @@
       "property": "Property",
       "tokenPayload": "Token Payload",
       "publicKeyFile": "Public Key",
+      "useOptions": "Use Optionals",
+      "useMaxAge": "Use Max. Age",
       "entireMessage": "Verify Entire Message",
       "showActivities": "Show Activities",
       "showErrors": "Show Errors"
+    },
+    "options" : {
+      "issuer": "Issuer (iss)",
+      "subject": "Subject (sub)",
+      "audience": "Audience (aud)",
+      "ignoreExpiration": "Ignore Expiration",
+      "clockTolerance": "Clock Tolerance",
+      "maxAge": "Max. Age",
+      "ignoreNotBefore": "Ignore Not Before",
+      "notBefore": "Not Before (nbf)",
+      "issuedAt": "Issued At (iat)",
+      "jwtId": "JWT ID (jti)"
+    },
+    "header": {
+      "type": "Type (typ)",
+      "contentType": "Content Type (cty)"
+    },
+    "tabs-label": {
+      "token": "Token",
+      "options": "Optionals"
     }
   }
 }
