@@ -6,16 +6,5 @@ All notable changes to this project will be documented in this file. See [standa
 ## 0.1.3 (2017-12-27)
 
 
-
-<a name="0.1.2"></a>
-## 0.1.2 (2017-12-27)
-
-
-
-<a name="0.1.1"></a>
-## 0.1.1 (2017-12-27)
-
-
-
 <a name="0.1.0"></a>
 ## 0.1.0 (2017-12-25)
