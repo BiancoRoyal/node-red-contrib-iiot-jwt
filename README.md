@@ -16,7 +16,7 @@ The JSON Web Token (JWT) toolbox package for Node-RED.
 
 ### JWT Version
 
-JWT 8.x
+JWT 8.1.x
 
 ## Install
 
@@ -32,28 +32,17 @@ try these options on npm install to build, if you have problems to install
 
     --unsafe-perm --build-from-source
     
-## TODO
-
-* using options:
-    * algorithm (default: HS256)
-    * expiresIn
-    * notBefore
-    * audience
-    * issuer
-    * jwtid
-    * subject
-    * noTimestamp
-    * header
-    * keyid
-* using key files
-
-    
 ## Contributing
 
 Let's work together! 
 Please read and in best case accept [CONTRIBUTING](CONTRIBUTING.md) by your sign and send it via E-Mail.
 You could also send just a pull request.
 
+### TODO
+
+* more options
+* more testing
+   
 ### License
 
 The MIT License

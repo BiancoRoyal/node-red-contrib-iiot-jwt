@@ -31,7 +31,7 @@ relevant nodes, press Ctrl-E and copy the flow data from the Export dialog.
 
 At a minimum, please include:
 
- - Version of node.js? (should be >=v8.8.1)
+ - Version of node.js? (should be >=v8.9.3)
  - Version of Node-RED? (should be >=v0.17.5)
  - Version of node-red-contrib-iiot-jwt?
  
