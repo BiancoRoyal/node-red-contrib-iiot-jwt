@@ -1,94 +1,118 @@
 [
   {
-    "id": "a0c278ae.d0f6f8",
+    "id": "bc2e7f6e.fb27e8",
     "type": "tab",
     "label": "JWT Payload",
     "disabled": false,
     "info": ""
   },
   {
-    "id": "910e6b99.8ba038",
+    "id": "82ccf735.06142",
     "type": "JWT-OUT",
-    "z": "a0c278ae.d0f6f8",
+    "z": "bc2e7f6e.fb27e8",
     "name": "",
+    "algoType": "HASH",
     "signature": "",
-    "x": 360,
-    "y": 120,
+    "algoHash": "HS256",
+    "privateKeyFile": "",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": false,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "tokenExpires": false,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": false,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 300,
+    "y": 100,
     "wires": [
       [
-        "1701afa1.842a7",
-        "793bb82f.ad943"
+        "ea7ea483.539f68",
+        "2183b30d.a5ea34"
       ]
     ]
   },
   {
-    "id": "96fb8d54.f821c8",
+    "id": "e5ea979.dbb7ae8",
     "type": "inject",
-    "z": "a0c278ae.d0f6f8",
+    "z": "bc2e7f6e.fb27e8",
     "name": "",
     "topic": "",
-    "payload": "Test",
+    "payload": "test message",
     "payloadType": "str",
     "repeat": "",
     "crontab": "",
-    "once": false,
-    "x": 170,
-    "y": 120,
+    "once": true,
+    "x": 140,
+    "y": 100,
     "wires": [
       [
-        "4a7d6853.f19af8",
-        "910e6b99.8ba038"
+        "82ccf735.06142"
       ]
     ]
   },
   {
-    "id": "4a7d6853.f19af8",
+    "id": "ea7ea483.539f68",
     "type": "debug",
-    "z": "a0c278ae.d0f6f8",
+    "z": "bc2e7f6e.fb27e8",
     "name": "",
     "active": true,
     "console": "false",
-    "complete": "payload",
-    "x": 370,
-    "y": 80,
+    "complete": "true",
+    "x": 450,
+    "y": 60,
     "wires": []
   },
   {
-    "id": "2ef71120.dbd146",
-    "type": "debug",
-    "z": "a0c278ae.d0f6f8",
-    "name": "",
-    "active": true,
-    "console": "false",
-    "complete": "payload",
-    "x": 730,
-    "y": 120,
-    "wires": []
-  },
-  {
-    "id": "1701afa1.842a7",
+    "id": "2183b30d.a5ea34",
     "type": "JWT-IN",
-    "z": "a0c278ae.d0f6f8",
+    "z": "bc2e7f6e.fb27e8",
     "name": "",
+    "algoType": "HASH",
     "signature": "",
-    "x": 560,
-    "y": 120,
+    "publicKeyFile": "",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": false,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": 1,
+    "clockToleranceUnit": "s",
+    "useMaxAge": false,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 460,
+    "y": 100,
     "wires": [
       [
-        "2ef71120.dbd146"
+        "79600b18.df9b54"
       ]
     ]
   },
   {
-    "id": "793bb82f.ad943",
+    "id": "79600b18.df9b54",
     "type": "debug",
-    "z": "a0c278ae.d0f6f8",
+    "z": "bc2e7f6e.fb27e8",
     "name": "",
     "active": true,
     "console": "false",
-    "complete": "payload",
-    "x": 570,
-    "y": 80,
+    "complete": "true",
+    "x": 610,
+    "y": 100,
     "wires": []
   }
 ]

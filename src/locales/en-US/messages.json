@@ -27,7 +27,7 @@
       "nooverride": "Warning: msg properties can no longer override set node properties. See bit.ly/nr-override-msg-props"
     }
   },
-  "jwt-contrib": {
+  "jwt-iiot-contrib": {
     "common": {
       "label": {
         "type": "Type",

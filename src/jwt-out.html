@@ -2,6 +2,7 @@
  The MIT License
 
  Copyright (c) 2017 - Klaus Landsdorf (http://bianco-royal.de/)
+ Copyright (c) 2017 IBM Corp. (node-red)
  All rights reserved.
  node-red-contrib-iiot-jwt
 -->
@@ -11,10 +12,43 @@
     category: 'output',
     color: "#6beee5",
     defaults: {
-      name: {value: ""},
-      signature: {value: ""},
-      tokenPayload: {value: ""},
-      entireMessage: {value: false}
+        name: {value: ""},
+        algoType: {value: "HASH"},
+        signature: {value: ""},
+        algoHash: {value: "HS256"},
+        privateKeyFile: {value: ""},
+        algoFile: {value: "RS256"},
+        tokenPayload: {value: ""},
+        selectedProperty: {value: ""},
+        entireMessage: {value: false},
+        showErrors: {value: false},
+        useOptions: {value: false},
+        issuer: {value: ""},
+        subject: {value: ""},
+        audience: {value: ""},
+        jwtId: {value: ""},
+        tokenExpires: {value: false},
+        expiresIn: {
+          value: 60, validate: function (v) {
+            return v > 0
+          }
+        },
+        expiresInUnit: {
+          value: "s", validate: function (v) {
+            return "ms" == v || "s" == v || "m" == v || "h" == v
+          }
+        },
+        tokenNotBefore: {value: false},
+        notBefore: {
+          value: 1, validate: function (v) {
+            return v >= 1
+          }
+        },
+        notBeforeUnit: {
+          value: "s", validate: function (v) {
+            return "ms" == v || "s" == v || "m" == v || "h" == v
+          }
+        }
     },
     inputs: 1,
     outputs: 1,
@@ -25,39 +59,237 @@
     },
     labelStyle: function () {
       return this.name ? "node_label_italic" : "";
+    },
+    oneditprepare: function () {
+
+      let tabs = RED.tabs.create({
+        id: "node-input-jwt-tabs",
+        onchange: function (tab) {
+            $("#node-input-tabs-content").children().hide()
+            $("#" + tab.id).show()
+        }
+      })
+
+      tabs.addTab({
+        id: "jwt-token-tab",
+        label: this._("jwt-iiot-contrib.tabs-label.token")
+      })
+
+      tabs.addTab({
+        id: "jwt-options-tab",
+        label: this._("jwt-iiot-contrib.tabs-label.options")
+      })
+
+      let tokenExpiresCheckbox = $("#node-input-tokenExpires")
+      let epiresRow = $("#epiresRow")
+
+      tokenExpiresCheckbox.change(function () {
+        if ($(this).is(":checked")) {
+          epiresRow.show();
+        } else {
+          epiresRow.hide();
+        }
+      });
+
+      let tokenNotBeforeCheckbox = $("#node-input-tokenNotBefore")
+      let notBeforeRow = $("#notBeforeRow")
+
+      tokenNotBeforeCheckbox.change(function () {
+        if ($(this).is(":checked")) {
+          notBeforeRow.show();
+        } else {
+          notBeforeRow.hide();
+        }
+      });
+
+      let useOptionsCheckbox = $("#node-input-useOptions")
+      let entireOptionals = $("#entireOptionals")
+
+      useOptionsCheckbox.change(function () {
+        if ($(this).is(":checked")) {
+          entireOptionals.show();
+        } else {
+          entireOptionals.hide();
+        }
+      });
+
+      let algoTypeSelector = $('#node-input-algoType')
+      let hashSignRowSelector = $('#hashSignRow')
+      let fileSignRowSelector = $('#fileSignRow')
+      let previous = null
+
+      algoTypeSelector.on('focus', function () {
+        previous = this.value
+      }).change(function () {
+        if (previous === null) {
+          previous = $("#node-input-algoType").val()
+        }
+
+        switch(algoTypeSelector.val()) {
+          case 'FILE':
+            hashSignRowSelector.hide()
+            fileSignRowSelector.show()
+            break
+          case 'HASH':
+            hashSignRowSelector.show()
+            fileSignRowSelector.hide()
+            break
+          default:
+            hashSignRowSelector.hide()
+            fileSignRowSelector.hide()
+        }
+
+      })
+
+      let jwtIdLookupField = $("#node-lookup-jwtId")
+      let jwtIdField = $("#node-input-jwtId")
+
+      jwtIdLookupField.click(function () {
+        $.getJSON('/jwt/object/getid', function (data) {
+          jwtIdField.val(data)
+        })
+      })
     }
   });
 </script>
 
 <script type="text/x-red" data-template-name="JWT-OUT">
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
-        <input type="text" id="node-input-name" placeholder="">
+        <ul style="background: #fff; min-width: 600px; margin-bottom: 20px;" id="node-input-jwt-tabs"></ul>
     </div>
-    <div class="form-row">
-        <label for="node-input-signature"><i class="fa fa-certificate"></i> <span data-i18n="jwt-contrib.label.signature"></span></label>
-        <input type="text" id="node-input-signature" placeholder="jwt">
-    </div>
-    <div class="form-row">
-        <label for="node-input-tokenPayload"><i class="fa fa-connectdevelop"></i> <span data-i18n="jwt-contrib.label.tokenPayload"></span></label>
-        <input type="text" id="node-input-tokenPayload" placeholder="Node-RED-JWT">
-    </div>
-    <div class="form-row">
-        <label for="node-input-selectedProperty"><i class="fa fa-list"></i> <span data-i18n="jwt-contrib.label.property"></span></label>
-        <input type="text" id="node-input-selectedProperty" placeholder="token" />
-    </div>
-    <hr>
-    <div class="form-row">
-        <label style="min-width:160px" for="node-input-entireMessage">
-            <i class="fa fa-th"></i>
-            <span data-i18n="jwt-contrib.label.entireMessage"></span>
-        </label>
-        <input type="checkbox" id="node-input-entireMessage" style="max-width:30px">
+    <div id="node-input-tabs-content" style="min-height: 170px;">
+        <div id="jwt-token-tab" style="display:none">
+            <div class="form-row">
+                <label for="node-input-name"><i class="icon-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+                <input type="text" id="node-input-name" placeholder="">
+            </div>
+            <div class="form-row" id="algoTypeRow">
+                <label for="node-input-algoType"><i class="icon-list"></i> <span data-i18n="jwt-iiot-contrib.label.algoType"></span></label>
+                <select id="node-input-algoType" style="max-width:200px">
+                    <option value="HASH">HASH</option>
+                    <option value="FILE">FILE</option>
+                    <option value="NONE">NONE</option>
+                </select>
+            </div>
+            <div id="hashSignRow">
+                <div class="form-row">
+                    <label for="node-input-algoHash"><i class="icon-list"></i> <span data-i18n="jwt-iiot-contrib.label.algo"></span></label>
+                    <select id="node-input-algoHash" style="max-width:200px">
+                        <option value="HS256">HS256</option>
+                        <option value="HS384">HS384</option>
+                        <option value="HS512">HS512</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="node-input-signature"><i class="fa fa-user-secret"></i> <span data-i18n="jwt-iiot-contrib.label.signature"></span></label>
+                    <input type="text" id="node-input-signature" placeholder="jwt">
+                </div>
+            </div>
+            <div id="fileSignRow">
+                <div class="form-row">
+                    <label for="node-input-algoFile"><i class="icon-list"></i> <span data-i18n="jwt-iiot-contrib.label.algo"></span></label>
+                    <select id="node-input-algoFile" style="max-width:200px">
+                        <option value="RS256">RS256</option>
+                        <option value="RS384">RS384</option>
+                        <option value="RS512">RS512</option>
+                        <option value="ES256">ES256</option>
+                        <option value="ES384">ES384</option>
+                        <option value="ES512">ES512</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="node-input-privateKeyFile"><i class="fa fa-certificate"></i> <span data-i18n="jwt-iiot-contrib.label.privateKeyFile"></span></label>
+                    <input type="text" id="node-input-privateKeyFile" placeholder="$HOME/.ssh/keys/privateJWT.key">
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="node-input-tokenPayload"><i class="fa fa-connectdevelop"></i> <span data-i18n="jwt-iiot-contrib.label.tokenPayload"></span></label>
+                <input type="text" id="node-input-tokenPayload" placeholder="Node-RED-JWT">
+            </div>
+            <div class="form-row">
+                <label for="node-input-selectedProperty"><i class="fa fa-list"></i> <span data-i18n="jwt-iiot-contrib.label.selectedProperty"></span></label>
+                <input type="text" id="node-input-selectedProperty" placeholder="token" />
+            </div>
+            <hr>
+            <div class="form-row">
+                <label style="min-width:160px" for="node-input-entireMessage">
+                    <i class="fa fa-th"></i>
+                    <span data-i18n="jwt-iiot-contrib.label.entireMessage"></span>
+                </label>
+                <input type="checkbox" id="node-input-entireMessage" style="max-width:30px">
+            </div>
+            <div class="form-row">
+                <label style="min-width:160px" for="node-input-showErrors">
+                    <i class="fa fa-th"></i>
+                    <span data-i18n="jwt-iiot-contrib.label.showErrors"></span>
+                </label>
+                <input type="checkbox" id="node-input-showErrors" style="max-width:30px">
+            </div>
+        </div>
+        <div id="jwt-options-tab" style="display:none">
+            <div class="form-row">
+                <label style="min-width:160px" for="node-input-useOptions">
+                    <i class="fa fa-th"></i>
+                    <span data-i18n="jwt-iiot-contrib.label.useOptions"></span>
+                </label>
+                <input type="checkbox" id="node-input-useOptions" style="max-width:30px">
+            </div>
+            <div id="entireOptionals">
+                <div class="form-row">
+                    <label for="node-input-issuer"><i class="fa fa-user-circle"></i> <span data-i18n="jwt-iiot-contrib.options.issuer"></span></label>
+                    <input type="text" id="node-input-issuer" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label for="node-input-subject"><i class="fa fa-comment"></i> <span data-i18n="jwt-iiot-contrib.options.subject"></span></label>
+                    <input type="text" id="node-input-subject" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label for="node-input-audience"><i class="fa fa-user-circle-o"></i> <span data-i18n="jwt-iiot-contrib.options.audience"></span></label>
+                    <input type="text" id="node-input-audience" placeholder="">
+                </div>
+                <div class="form-row">
+                    <label for="node-input-jwtId"><i class="fa fa-id-badge"></i> <span data-i18n="jwt-iiot-contrib.options.jwtId"></span></label>
+                    <input type="text" id="node-input-jwtId" placeholder="" style="width:50%;">
+                    <a id="node-lookup-jwtId" class="btn"><i class="fa fa-cogs"></i></a>
+                </div>
+                <hr>
+                <div class="form-row">
+                    <label style="min-width:160px" for="node-input-tokenExpires"><i class="fa fa-clock-o"></i> <span
+                    data-i18n="jwt-iiot-contrib.options.tokenExpires"></span></label>
+                    <input type="checkbox" id="node-input-tokenExpires" style="max-width:30px">
+                </div>
+                <div class="form-row" id="epiresRow">
+                    <label for="node-input-expiresIn"><i class="fa fa-calendar"></i> <span data-i18n="jwt-iiot-contrib.options.expiresIn"></span></label>
+                    <input type="number" id="node-input-expiresIn" placeholder="60" style="max-width:120px">
+                    <select id="node-input-expiresInUnit" style="max-width:160px">
+                        <option value="ms">millisecond(s)</option>
+                        <option value="s">second(s)</option>
+                        <option value="m">minute(s)</option>
+                        <option value="h">hour(s)</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label style="min-width:160px" for="node-input-tokenNotBefore"><i class="fa fa-clock-o"></i> <span
+                    data-i18n="jwt-iiot-contrib.options.tokenNotBefore"></span></label>
+                    <input type="checkbox" id="node-input-tokenNotBefore" style="max-width:30px">
+                </div>
+                <div class="form-row" id="notBeforeRow">
+                    <label for="node-input-notBefore"><i class="fa fa-calendar"></i> <span data-i18n="jwt-iiot-contrib.options.notBefore"></span></label>
+                    <input type="number" id="node-input-notBefore" placeholder="1" style="max-width:120px">
+                    <select id="node-input-notBeforeUnit" style="max-width:160px">
+                        <option value="ms">millisecond(s)</option>
+                        <option value="s">second(s)</option>
+                        <option value="m">minute(s)</option>
+                        <option value="h">hour(s)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="JWT-OUT">
     <h2>JWT Output Node</h2>
 
-    <p>!!! UNDER DEVELOPMENT !!!</p>
+    <p><a href="https://www.npmjs.com/package/jsonwebtoken" target="_blank">documentation</a></p>
 </script>

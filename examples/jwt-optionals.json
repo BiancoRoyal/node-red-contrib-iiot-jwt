@@ -1,0 +1,336 @@
+[
+  {
+    "id": "9780ab84.c1d708",
+    "type": "tab",
+    "label": "JWT Message Opt",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "9ac14ed5.00dc88",
+    "type": "JWT-OUT",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "algoHash": "HS256",
+    "privateKeyFile": "",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": false,
+    "showErrors": false,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear King",
+    "audience": "",
+    "jwtId": "5a43a1df21de68f36ea065c7",
+    "tokenExpires": true,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": true,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 320,
+    "y": 100,
+    "wires": [
+      [
+        "ae16bcc2.52c9",
+        "eabecbd5.8b454"
+      ]
+    ]
+  },
+  {
+    "id": "c1acaa03.0fa5e",
+    "type": "inject",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "x": 140,
+    "y": 100,
+    "wires": [
+      [
+        "9ac14ed5.00dc88"
+      ]
+    ]
+  },
+  {
+    "id": "ae16bcc2.52c9",
+    "type": "debug",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 470,
+    "y": 60,
+    "wires": []
+  },
+  {
+    "id": "eabecbd5.8b454",
+    "type": "JWT-IN",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "publicKeyFile": "",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear Lui",
+    "audience": "",
+    "jwtId": "",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": "2",
+    "clockToleranceUnit": "s",
+    "useMaxAge": true,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 480,
+    "y": 100,
+    "wires": [
+      [
+        "9c3caaaf.3ec06"
+      ]
+    ]
+  },
+  {
+    "id": "9c3caaaf.3ec06",
+    "type": "debug",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 630,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "5e58bc96.1337ac",
+    "type": "JWT-OUT",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "algoHash": "HS256",
+    "privateKeyFile": "",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": false,
+    "showErrors": false,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear King",
+    "audience": "",
+    "jwtId": "5a43a1df21de68f36ea065c7",
+    "tokenExpires": true,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": true,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 320,
+    "y": 240,
+    "wires": [
+      [
+        "878552bd.229a4",
+        "13441834.e6981"
+      ]
+    ]
+  },
+  {
+    "id": "aca9bff3.0e5108",
+    "type": "inject",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "x": 140,
+    "y": 240,
+    "wires": [
+      [
+        "5e58bc96.1337ac"
+      ]
+    ]
+  },
+  {
+    "id": "878552bd.229a4",
+    "type": "debug",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 470,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "13441834.e6981",
+    "type": "JWT-IN",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "publicKeyFile": "",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": false,
+    "showErrors": false,
+    "useOptions": true,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "5a43a1df21de68f36ea065c7",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": "2",
+    "clockToleranceUnit": "s",
+    "useMaxAge": true,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 480,
+    "y": 240,
+    "wires": [
+      [
+        "2b75610f.74783e"
+      ]
+    ]
+  },
+  {
+    "id": "2b75610f.74783e",
+    "type": "debug",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 630,
+    "y": 240,
+    "wires": []
+  },
+  {
+    "id": "c2696f6f.103618",
+    "type": "JWT-OUT",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "algoHash": "HS256",
+    "privateKeyFile": "",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": true,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear King",
+    "audience": "",
+    "jwtId": "5a43a1df21de68f36ea065c7",
+    "tokenExpires": true,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": true,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 320,
+    "y": 380,
+    "wires": [
+      [
+        "d66c2d15.333d4",
+        "e3e82901.bb8e3"
+      ]
+    ]
+  },
+  {
+    "id": "ce136bb5.af04b8",
+    "type": "inject",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "x": 140,
+    "y": 380,
+    "wires": [
+      [
+        "c2696f6f.103618"
+      ]
+    ]
+  },
+  {
+    "id": "d66c2d15.333d4",
+    "type": "debug",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 470,
+    "y": 340,
+    "wires": []
+  },
+  {
+    "id": "e3e82901.bb8e3",
+    "type": "JWT-IN",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "publicKeyFile": "",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": true,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "5a43a1df21de68f36ea065c7",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": "2",
+    "clockToleranceUnit": "s",
+    "useMaxAge": true,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 480,
+    "y": 380,
+    "wires": [
+      [
+        "7bbed0f9.b2acb"
+      ]
+    ]
+  },
+  {
+    "id": "7bbed0f9.b2acb",
+    "type": "debug",
+    "z": "9780ab84.c1d708",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 630,
+    "y": 380,
+    "wires": []
+  }
+]

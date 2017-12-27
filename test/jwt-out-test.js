@@ -10,70 +10,111 @@
 
 'use strict'
 
+
+var assert = require('chai').assert
 var injectNode = require('node-red/nodes/core/core/20-inject.js')
 var outputNode = require('../src/jwt-out.js')
 var helper = require('./helper.js')
 var testFlowPayload = [
   {
-    "id": "3b8e682a.850b38",
+    "id": "n1",
     "type": "inject",
-    "payload": "Test",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
     "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
     "once": true,
     "wires": [
       [
-        "f348091d.d27b6",
-        "n1"
+        "n2", "n3"
       ]
     ]
   },
+  {id:"n2", type:"helper"},
   {
-    "id": "f348091d.d27b6",
+    "id": "n3",
     "type": "JWT-OUT",
-    "z": "a0c278ae.d0f6f8",
     "name": "",
+    "algoType": "HASH",
     "signature": "",
-    "entireMessage": false,
+    "algoHash": "HS256",
+    "privateKeyFile": "",
+    "algoFile": "RS256",
+    "tokenPayload": "",
     "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": false,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "tokenExpires": false,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": false,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
     "wires": [
       [
-        "n2"
+        "n4"
       ]
     ]
   },
-  {id:"n1", type:"helper"},
-  {id:"n2", type:"helper"},
+  {id:"n4", type:"helper"}
 ]
 
 var testFlowToken = [
   {
-    "id": "3b8e682a.850b38",
+    "id": "n1",
     "type": "inject",
-    "payload": "Test",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
     "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
     "once": true,
     "wires": [
       [
-        "f348091d.d27b6",
-        "n1"
+        "n2", "n3"
       ]
     ]
   },
+  {id:"n2", type:"helper"},
   {
-    "id": "f348091d.d27b6",
+    "id": "n3",
     "type": "JWT-OUT",
-    "z": "a0c278ae.d0f6f8",
     "name": "",
+    "algoType": "HASH",
     "signature": "",
+    "algoHash": "HS256",
+    "privateKeyFile": "",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "",
     "entireMessage": false,
+    "showErrors": false,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "tokenExpires": false,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": false,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
     "wires": [
       [
-        "n2"
+        "n4"
       ]
     ]
   },
-  {id:"n1", type:"helper"},
-  {id:"n2", type:"helper"},
+  {id:"n4", type:"helper"}
 ]
 
 describe('JWT Out node Testing', function () {
@@ -110,7 +151,7 @@ describe('JWT Out node Testing', function () {
       helper.load([injectNode, outputNode], testFlowPayload, function() {
         let n1 = helper.getNode("n1")
         n1.on("input", function(msg) {
-          msg.should.have.property('payload', 'Test')
+          msg.should.have.property('payload', 'test message')
           done()
         })
       })
@@ -119,8 +160,10 @@ describe('JWT Out node Testing', function () {
     it('should sign a message', function(done) {
       helper.load([injectNode, outputNode], testFlowPayload, function() {
         let n2 = helper.getNode("n2")
-        n2.on("input", function(msg) {
-          msg.should.have.property('payload', 'eyJhbGciOiJIUzI1NiJ9.VGVzdA.QrGSd49pBydy_lJuAiCbNVG7_F6inUTJub7k_FpW7Tk')
+        let n4 = helper.getNode("n4")
+        n4.on("input", function(msg) {
+          msg.should.have.property('payload')
+          assert.match(msg.payload, /^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.*./)
           done()
         })
       })
@@ -128,9 +171,10 @@ describe('JWT Out node Testing', function () {
 
     it('should have a token', function(done) {
       helper.load([injectNode, outputNode], testFlowToken, function() {
-        let n2 = helper.getNode("n2")
-        n2.on("input", function(msg) {
-          msg.should.have.property('token', 'eyJhbGciOiJIUzI1NiJ9.Tm9kZS1SRUQtSldU.-5uQr1GLmUwjw2b1DF8gWptQ3C1TKGppSBu5sV-MPEk');
+        let n4 = helper.getNode("n3")
+        n4.on("input", function(msg) {
+          msg.should.have.property('token')
+          assert.match(msg.token, /^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.*./)
           done()
         })
       })
