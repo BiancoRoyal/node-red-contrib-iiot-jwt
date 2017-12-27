@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-iiot-jwt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "The IIoT JSON Web Token (JWT) toolbox package for Node-RED.",
   "repository": {
@@ -10,6 +10,7 @@
   "dependencies": {
     "debug": "3.1.0",
     "jsonwebtoken": "8.1.0",
+    "bson": "1.0.4",
     "underscore": "1.8.3"
   },
   "keywords": [
