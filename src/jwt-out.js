@@ -125,13 +125,13 @@ module.exports = function (RED) {
 
       try {
         if (node.entireMessage) {
-          msg = jwtLib.sign({ data: msg }, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
+          msg = jwtLib.sign( JSON.stringify(msg) , (node.useOptions) ? node.getUnsignedOptions(msg) : {})
         } else {
           if (!msg[node.selectedProperty]) {
             msg[node.selectedProperty] = node.tokenPayload
           }
 
-          msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
+          msg[node.selectedProperty] = jwtLib.sign( json.stringify(msg[node.selectedProperty]), (node.useOptions) ? node.getUnsignedOptions(msg) : {})
         }
 
         node.send(msg)
