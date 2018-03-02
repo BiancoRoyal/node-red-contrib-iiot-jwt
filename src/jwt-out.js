@@ -105,13 +105,13 @@ module.exports = function (RED) {
     node.jwtSign = function (msg, signature) {
       try {
         if (node.entireMessage) {
-          msg = jwtLib.sign({ data: msg }, signature, (node.useOptions) ? node.getSignOptions(msg) : {})
+          msg = jwtLib.sign(JSON.stringify(msg), signature, (node.useOptions) ? node.getSignOptions(msg) : {})
         } else {
           if (!msg[node.selectedProperty]) {
             msg[node.selectedProperty] = node.tokenPayload
           }
 
-          msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, signature, (node.useOptions) ? node.getSignOptions(msg) : {})
+          msg[node.selectedProperty] = jwtLib.sign( JSON.stringify(msg[node.selectedProperty]) , signature, (node.useOptions) ? node.getSignOptions(msg) : {})
         }
 
         node.send(msg)
@@ -125,13 +125,13 @@ module.exports = function (RED) {
 
       try {
         if (node.entireMessage) {
-          msg = jwtLib.sign({ data: msg }, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
+          msg = jwtLib.sign( JSON.stringify(msg) , (node.useOptions) ? node.getUnsignedOptions(msg) : {})
         } else {
           if (!msg[node.selectedProperty]) {
             msg[node.selectedProperty] = node.tokenPayload
           }
 
-          msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
+          msg[node.selectedProperty] = jwtLib.sign( json.stringify(msg[node.selectedProperty]), (node.useOptions) ? node.getUnsignedOptions(msg) : {})
         }
 
         node.send(msg)
