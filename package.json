@@ -15,18 +15,13 @@
   },
   "keywords": [
     "node-red",
-    "JWT",
-    "jwt",
-    "json",
-    "webtoken",
-    "jsonwebtoken",
-    "nodered",
-    "iiot",
-    "IIoT",
     "biancode",
+    "jsonwebtoken",
+    "webtoken",
+    "jwt",
+    "iiot",
     "modbus",
-    "opcua",
-    "token"
+    "opcua"
   ],
   "author": "Klaus Landsdorf <klaus.landsdorf@bianco-royal.de>",
   "license": "MIT",
