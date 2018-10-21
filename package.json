@@ -10,7 +10,7 @@
   "dependencies": {
     "debug": "4.1.0",
     "jsonwebtoken": "8.3.0",
-    "bson": "3.0.2",
+    "bson": "^4.0.0-rc5",
     "underscore": "1.9.1"
   },
   "keywords": [
@@ -52,6 +52,7 @@
     "rewrite-changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "files": [
+    "docs",
     "examples",
     "jwt"
   ],
