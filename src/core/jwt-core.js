@@ -7,30 +7,33 @@
  */
 'use strict'
 
-var de = de || {biancoroyal: {jwt: {core: {}}}} // eslint-disable-line no-use-before-define
+var de = de || { biancoroyal: { jwt: { core: {} } } } // eslint-disable-line no-use-before-define
 de.biancoroyal.jwt.core.internalDebugLog = de.biancoroyal.jwt.core.internalDebugLog || require('debug')('jsonWebToken:core') // eslint-disable-line no-use-before-define
 de.biancoroyal.jwt.core.detailDebugLog = de.biancoroyal.jwt.core.detailDebugLog || require('debug')('jsonWebToken:core:details') // eslint-disable-line no-use-before-define
 de.biancoroyal.jwt.core.specialDebugLog = de.biancoroyal.jwt.core.specialDebugLog || require('debug')('jsonWebToken:core:special') // eslint-disable-line no-use-before-define
 
-de.biancoroyal.jwt.core.calcSecondsByUnit = function (value, unit) {
-  let result = 1
+de.biancoroyal.jwt.core.calcSecondsByTimeAndUnit = function (time, unit) {
+  let convertedTime
 
   switch (unit) {
     case 'ms':
-      result = parseInt(value) * 1000
+      convertedTime = time / 1000
+      break
+    case 's':
+      convertedTime = time // seconds
       break
     case 'm':
-      result = parseInt(value) * 60 // minutes
+      convertedTime = time * 60 // minutes
       break
     case 'h':
-      result = parseInt(value) * 3600 // hours
+      convertedTime = time * 3600 // hours
       break
     default:
-      result = parseInt(value)
+      convertedTime = 1 // 1 sec.
       break
   }
 
-  return result
+  return convertedTime
 }
 
 module.exports = de.biancoroyal.jwt.core

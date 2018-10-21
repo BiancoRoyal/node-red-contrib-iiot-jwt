@@ -46,7 +46,7 @@ module.exports = function (RED) {
 
     let node = this
 
-    node.status({fill: 'green', shape: 'dot', text: 'active'})
+    node.status({ fill: 'green', shape: 'dot', text: 'active' })
 
     if (node.algoType === 'FILE') {
       node.cert = fs.readFileSync(node.publicKeyFile)
@@ -62,11 +62,11 @@ module.exports = function (RED) {
       options.jwtid = node.jwtid
 
       if (!node.ignoreExpiration || !node.ignoreNotBefore) {
-        options.clockTolerance = jwtCore.calcSecondsByUnit(node.clockTolerance, node.clockToleranceUnit)
+        options.clockTolerance = jwtCore.calcSecondsByTimeAndUnit(node.clockTolerance, node.clockToleranceUnit)
       }
 
       if (node.useMaxAge) {
-        options.maxAge = jwtCore.calcSecondsByUnit(node.maxAge, node.maxAgeUnit)
+        options.maxAge = jwtCore.calcSecondsByTimeAndUnit(node.maxAge, node.maxAgeUnit)
       }
 
       return options
@@ -122,11 +122,11 @@ module.exports = function (RED) {
       }
     }
 
-    node.jwtUnsigned = function (msg) {
+    node.jwtUnsigned = function (msg, signature) {
       jwtCore.internalDebugLog('Message With Token')
 
       if (node.entireMessage) {
-        msg = jwtLib.verify(msg, (node.useOptions) ? node.getUnsignedOptions() : {}, function (err, decodedMsg) {
+        msg = jwtLib.verify(msg, signature, (node.useOptions) ? node.getUnsignedOptions() : {}, function (err, decodedMsg) {
           if (err) {
             node.handleError(err, msg)
           } else {
@@ -135,7 +135,7 @@ module.exports = function (RED) {
           }
         })
       } else {
-        jwtLib.verify(msg[node.selectedProperty], (node.useOptions) ? node.getUnsignedOptions() : {}, function (err, decoded) {
+        jwtLib.verify(msg[node.selectedProperty], signature, (node.useOptions) ? node.getUnsignedOptions() : {}, function (err, decoded) {
           if (err) {
             node.handleError(err, msg)
           } else {
@@ -151,9 +151,9 @@ module.exports = function (RED) {
       jwtCore.internalDebugLog('Decode Message Untrusted')
 
       if (node.entireMessage) {
-        msg = jwtLib.decode(msg, {complete: true})
+        msg = jwtLib.decode(msg, { complete: true })
       } else {
-        msg[node.selectedProperty] = jwtLib.decode(msg[node.selectedProperty], {complete: true})
+        msg[node.selectedProperty] = jwtLib.decode(msg[node.selectedProperty], { complete: true })
       }
       msg.untrusted = true
       node.send(msg)
@@ -165,7 +165,7 @@ module.exports = function (RED) {
           node.jwtVerify(msg, node.cert)
           break
         case 'NONE':
-          node.jwtUnsigned(msg)
+          node.jwtUnsigned(msg, node.signature)
           break
         case 'DECODE':
           node.decodeMessage(msg)

@@ -6,3 +6,9 @@ error*.txt
 .DS_Store
 maps/
 docs/gen/
+.vscode/
+jscoverage/
+coverage/
+.coverage/
+
+jcoverage/

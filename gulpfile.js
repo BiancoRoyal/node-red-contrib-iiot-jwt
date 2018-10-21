@@ -56,7 +56,7 @@ gulp.task('public', function () {
 
 gulp.task('clean', function () {
   return gulp.src(['jwt', 'docs/gen', 'maps'])
-    .pipe(clean({force: true}))
+    .pipe(clean({ force: true }))
 })
 
 gulp.task('web', function () {
@@ -79,15 +79,15 @@ gulp.task('web', function () {
 gulp.task('nodejs', function (cb) {
   pump([
     gulp.src('src/**/*.js')
-      .pipe(sourcemaps.init({loadMaps: true}))
-      .pipe(babel({presets: ['es2015']}))
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(babel({ presets: ['@babel/env'] }))
       .pipe(uglify())
-      .pipe(sourcemaps.write('../maps')), gulp.dest('jwt')],
+      .pipe(sourcemaps.write('maps')), gulp.dest('jwt')],
   cb
   )
 })
 
 gulp.task('doc', function (cb) {
-  gulp.src(['README.md', 'src/**/*.js'], {read: false})
+  gulp.src(['README.md', 'src/**/*.js'], { read: false })
     .pipe(jsdoc(cb))
 })

@@ -3,6 +3,7 @@
 [![Repository GitHub](http://b.repl.ca/v1/Repository-GitHub-orange.png)](https://github.com/biancode/node-red-contrib-iiot-jwt)
 [![Quality Travis CI](http://b.repl.ca/v1/Quality-Travis_CI-green.png)](https://travis-ci.org/biancode/node-red-contrib-iiot-jwt)
 [![Build Status](https://travis-ci.org/biancode/node-red-contrib-iiot-jwt.svg?branch=master)](https://travis-ci.org/biancode/node-red-contrib-iiot-jwt)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0ec6d71df1cc48898d0bccbb901ef846)](https://www.codacy.com/app/klaus/node-red-contrib-iiot-jwt?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=biancode/node-red-contrib-iiot-jwt&amp;utm_campaign=Badge_Grade)
 
 [![nodejsonwebtoken](images/jwt-icon-small64.png)](https://jwt.io/)
 

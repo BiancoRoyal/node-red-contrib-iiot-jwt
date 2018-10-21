@@ -47,7 +47,7 @@ module.exports = function (RED) {
 
     let node = this
 
-    node.status({fill: 'green', shape: 'dot', text: 'active'})
+    node.status({ fill: 'green', shape: 'dot', text: 'active' })
 
     if (node.algoType === 'FILE') {
       node.cert = fs.readFileSync(node.privateKeyFile)
@@ -67,11 +67,11 @@ module.exports = function (RED) {
       }
 
       if (node.tokenExpires) {
-        options.expiresIn = jwtCore.calcSecondsByUnit(node.expiresIn, node.expiresInUnit)
+        options.expiresIn = jwtCore.calcSecondsByTimeAndUnit(node.expiresIn, node.expiresInUnit)
       }
 
       if (node.tokenNotBefore) {
-        options.notBefore = jwtCore.calcSecondsByUnit(node.notBefore, node.notBeforeUnit)
+        options.notBefore = jwtCore.calcSecondsByTimeAndUnit(node.notBefore, node.notBeforeUnit)
       }
 
       return options
@@ -120,18 +120,18 @@ module.exports = function (RED) {
       }
     }
 
-    node.jwtUnsigned = function (msg) {
+    node.jwtUnsigned = function (msg, signature) {
       jwtCore.internalDebugLog('Unsigned Message')
 
       try {
         if (node.entireMessage) {
-          msg = jwtLib.sign({ data: msg }, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
+          msg = jwtLib.sign({ data: msg }, signature, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
         } else {
           if (!msg[node.selectedProperty]) {
             msg[node.selectedProperty] = node.tokenPayload
           }
 
-          msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
+          msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, signature, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
         }
 
         node.send(msg)
@@ -147,7 +147,7 @@ module.exports = function (RED) {
           node.jwtSign(msg, node.cert)
           break
         case 'NONE':
-          node.jwtUnsigned(msg)
+          node.jwtUnsigned(msg, node.signature)
           break
         default:
           jwtCore.internalDebugLog('Sign Message With Hash Algorithm ' + node.algoHash)
