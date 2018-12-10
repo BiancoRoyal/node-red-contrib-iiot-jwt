@@ -106,7 +106,90 @@ var testUnsignedPayloadFlow = [
   { id: 'n3f1', type: 'helper' }
 ]
 
-describe('JWT nodes e2e Testing', function () {
+const testEntireUnsignedMessageFlow = [
+  {
+    'id': 'e347a834.107f48',
+    'type': 'inject',
+    'name': '',
+    'topic': '',
+    'payload': 'test message',
+    'payloadType': 'str',
+    'repeat': '',
+    'crontab': '',
+    'once': true,
+    'wires': [
+      [
+        'n1f2',
+        '2e9e94be.c27294'
+      ]
+    ]
+  },
+  { id: 'n1f2', type: 'helper' },
+  {
+    'id': '2e9e94be.c27294',
+    'type': 'JWT-OUT',
+    'name': '',
+    'algoType': 'NONE',
+    'signature': '',
+    'algoHash': '',
+    'privateKeyFile': '',
+    'algoFile': '',
+    'tokenPayload': '',
+    'selectedProperty': '',
+    'entireMessage': true,
+    'showErrors': false,
+    'useOptions': false,
+    'issuer': '',
+    'subject': '',
+    'audience': '',
+    'jwtId': '',
+    'tokenExpires': false,
+    'expiresIn': 60,
+    'expiresInUnit': 's',
+    'tokenNotBefore': false,
+    'notBefore': 1,
+    'notBeforeUnit': 's',
+    'wires': [
+      [
+        'n2f2',
+        '1a20574d.475b21'
+      ]
+    ]
+  },
+  { id: 'n2f2', type: 'helper' },
+  {
+    'id': '1a20574d.475b21',
+    'type': 'JWT-IN',
+    'name': '',
+    'algoType': 'NONE',
+    'signature': '',
+    'publicKeyFile': '',
+    'tokenPayload': '',
+    'selectedProperty': '',
+    'entireMessage': true,
+    'showErrors': false,
+    'useOptions': false,
+    'issuer': '',
+    'subject': '',
+    'audience': '',
+    'jwtId': '',
+    'ignoreExpiration': false,
+    'ignoreNotBefore': false,
+    'clockTolerance': 1,
+    'clockToleranceUnit': 's',
+    'useMaxAge': false,
+    'maxAge': 120,
+    'maxAgeUnit': 's',
+    'wires': [
+      [
+        'n3f2'
+      ]
+    ]
+  },
+  { id: 'n3f2', type: 'helper' }
+]
+
+describe('JWT nodes e2e unsigned Testing', function () {
   beforeAll(function (done) {
     helper.startServer(function () {
       done()
@@ -127,7 +210,7 @@ describe('JWT nodes e2e Testing', function () {
     })
   })
 
-  describe('Node', function () {
+  describe('Node payload OUT to IN', function () {
     it('should transfer unsigned message', function (done) {
       helper.load(jwtNodeSet, testUnsignedPayloadFlow, function () {
         let n2 = helper.getNode('n2f1')
@@ -143,6 +226,25 @@ describe('JWT nodes e2e Testing', function () {
           expect(msg.payload).toEqual({
             'text': 'test content'
           })
+          done()
+        })
+      })
+    })
+  })
+
+  describe('Node message OUT to IN', function () {
+    it('should transfer unsigned message', function (done) {
+      helper.load(jwtNodeSet, testEntireUnsignedMessageFlow, function () {
+        let n2 = helper.getNode('n2f2')
+        let n3 = helper.getNode('n3f2')
+
+        n2.on('input', function (msg) {
+          expect(msg).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9/)
+        })
+
+        n3.on('input', function (msg) {
+          expect(msg.data.payload).toEqual('test message')
+          expect(msg.untrusted).toBe(false)
           done()
         })
       })

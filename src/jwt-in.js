@@ -10,7 +10,6 @@
 module.exports = function (RED) {
   const jwtCore = require('./core/jwt-core')
   const jwtLib = require('jsonwebtoken')
-  const fs = require('fs')
 
   function JWTInputNode (config) {
     RED.nodes.createNode(this, config)
@@ -49,7 +48,15 @@ module.exports = function (RED) {
     node.status({ fill: 'green', shape: 'dot', text: 'active' })
 
     if (node.algoType === 'FILE') {
-      node.cert = fs.readFileSync(node.publicKeyFile)
+      try {
+        node.cert = jwtCore.fs.readFileSync(jwtCore.path.join(__dirname, node.publicKeyFile))
+      } catch (err) {
+        if (node.showErrors) {
+          node.error(err, { payload: '' })
+        }
+        jwtCore.internalDebugLog(err.message)
+        jwtCore.internalDebugLog(jwtCore.path.join(__dirname, node.privateKeyFile))
+      }
       node.algorithms = ['RS256', 'RS384', 'RS512', 'ES256', 'ES384', 'ES512']
     } else {
       node.algorithms = ['HS256', 'HS384', 'HS512']

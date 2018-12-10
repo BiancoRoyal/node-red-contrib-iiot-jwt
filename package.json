@@ -10,7 +10,7 @@
   "dependencies": {
     "debug": "4.1.0",
     "jsonwebtoken": "8.3.0",
-    "bson": "^4.0.0-rc5",
+    "bson": "4.0.1",
     "underscore": "1.9.1"
   },
   "keywords": [
@@ -35,7 +35,7 @@
     }
   },
   "engines": {
-    "node": "6.x || 8.x"
+    "node": ">=6.10"
   },
   "homepage": "https://github.com/biancode/node-red-contrib-iiot-jwt#readme",
   "scripts": {

@@ -10,7 +10,6 @@
 module.exports = function (RED) {
   const jwtCore = require('./core/jwt-core')
   const jwtLib = require('jsonwebtoken')
-  const fs = require('fs')
   let ObjectID = require('bson').ObjectID
 
   function JWTOutputNode (config) {
@@ -50,7 +49,15 @@ module.exports = function (RED) {
     node.status({ fill: 'green', shape: 'dot', text: 'active' })
 
     if (node.algoType === 'FILE') {
-      node.cert = fs.readFileSync(node.privateKeyFile)
+      try {
+        node.cert = jwtCore.fs.readFileSync(jwtCore.path.join(__dirname, node.privateKeyFile))
+      } catch (err) {
+        if (node.showErrors) {
+          node.error(err, { payload: '' })
+        }
+        jwtCore.internalDebugLog(err.message)
+        jwtCore.internalDebugLog(__dirname)
+      }
     }
 
     node.fillWithOptions = function (msg, options) {
