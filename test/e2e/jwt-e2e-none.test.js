@@ -243,7 +243,7 @@ describe('JWT nodes e2e unsigned Testing', function () {
         })
 
         n3.on('input', function (msg) {
-          expect(msg.data.payload).toEqual('test message')
+          expect(msg.payload).toEqual('test message')
           expect(msg.untrusted).toBe(false)
           done()
         })

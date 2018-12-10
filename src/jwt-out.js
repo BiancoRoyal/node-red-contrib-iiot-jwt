@@ -50,13 +50,19 @@ module.exports = function (RED) {
 
     if (node.algoType === 'FILE') {
       try {
-        node.cert = jwtCore.fs.readFileSync(jwtCore.path.join(__dirname, node.privateKeyFile))
+        const localFileName = jwtCore.path.join(__dirname, node.privateKeyFile)
+        if (jwtCore.fs.existsSync(localFileName)) {
+          node.cert = jwtCore.fs.readFileSync(localFileName, 'utf8')
+        } else {
+          node.cert = jwtCore.fs.readFileSync(node.privateKeyFile, 'utf8')
+        }
       } catch (err) {
         if (node.showErrors) {
           node.error(err, { payload: '' })
         }
         jwtCore.internalDebugLog(err.message)
-        jwtCore.internalDebugLog(__dirname)
+        jwtCore.internalDebugLog('searched on: ' + node.privateKeyFile)
+        jwtCore.internalDebugLog('searched on: ' + jwtCore.path.join(__dirname, node.privateKeyFile))
       }
     }
 
@@ -85,13 +91,15 @@ module.exports = function (RED) {
     }
 
     node.getSignOptions = function (msg) {
-      let algo = (node.algoType === 'FILE') ? node.algoFile : node.algoHash
-
-      let options = {
-        algorithm: algo
-      }
+      let options = node.getAlgorithmOption()
 
       return node.fillWithOptions(msg, options)
+    }
+
+    node.getAlgorithmOption = function () {
+      return {
+        algorithm: (node.algoType === 'FILE') ? node.algoFile : node.algoHash
+      }
     }
 
     node.getUnsignedOptions = function (msg) {
@@ -111,14 +119,15 @@ module.exports = function (RED) {
 
     node.jwtSign = function (msg, signature) {
       try {
+        const basicOptions = node.getAlgorithmOption()
         if (node.entireMessage) {
-          msg = jwtLib.sign({ data: msg }, signature, (node.useOptions) ? node.getSignOptions(msg) : {})
+          msg = { payload: jwtLib.sign(msg, signature, (node.useOptions) ? node.getSignOptions(msg) : basicOptions) }
         } else {
           if (!msg[node.selectedProperty]) {
             msg[node.selectedProperty] = node.tokenPayload
           }
 
-          msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, signature, (node.useOptions) ? node.getSignOptions(msg) : {})
+          msg[node.selectedProperty] = jwtLib.sign(msg[node.selectedProperty], signature, (node.useOptions) ? node.getSignOptions(msg) : basicOptions)
         }
 
         node.send(msg)
@@ -132,13 +141,13 @@ module.exports = function (RED) {
 
       try {
         if (node.entireMessage) {
-          msg = jwtLib.sign({ data: msg }, signature, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
+          msg = { payload: jwtLib.sign(msg, signature, (node.useOptions) ? node.getUnsignedOptions(msg) : {}) }
         } else {
           if (!msg[node.selectedProperty]) {
             msg[node.selectedProperty] = node.tokenPayload
           }
 
-          msg[node.selectedProperty] = jwtLib.sign({ data: msg[node.selectedProperty] }, signature, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
+          msg[node.selectedProperty] = jwtLib.sign(msg[node.selectedProperty], signature, (node.useOptions) ? node.getUnsignedOptions(msg) : {})
         }
 
         node.send(msg)

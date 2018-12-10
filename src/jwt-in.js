@@ -49,13 +49,19 @@ module.exports = function (RED) {
 
     if (node.algoType === 'FILE') {
       try {
-        node.cert = jwtCore.fs.readFileSync(jwtCore.path.join(__dirname, node.publicKeyFile))
+        const localFileName = jwtCore.path.join(__dirname, node.publicKeyFile)
+        if (jwtCore.fs.existsSync(localFileName)) {
+          node.cert = jwtCore.fs.readFileSync(localFileName, 'utf8')
+        } else {
+          node.cert = jwtCore.fs.readFileSync(node.publicKeyFile, 'utf8')
+        }
       } catch (err) {
         if (node.showErrors) {
           node.error(err, { payload: '' })
         }
         jwtCore.internalDebugLog(err.message)
-        jwtCore.internalDebugLog(jwtCore.path.join(__dirname, node.privateKeyFile))
+        jwtCore.internalDebugLog('searched on: ' + node.publicKeyFile)
+        jwtCore.internalDebugLog('searched on: ' + jwtCore.path.join(__dirname, node.publicKeyFile))
       }
       node.algorithms = ['RS256', 'RS384', 'RS512', 'ES256', 'ES384', 'ES512']
     } else {
@@ -167,18 +173,23 @@ module.exports = function (RED) {
     }
 
     node.on('input', function (msg) {
+      let message = msg
+      if (node.entireMessage) {
+        message = msg.payload
+      }
+
       switch (node.algoType) {
         case 'FILE':
-          node.jwtVerify(msg, node.cert)
+          node.jwtVerify(message, node.cert)
           break
         case 'NONE':
-          node.jwtUnsigned(msg, node.signature)
+          node.jwtUnsigned(message, node.signature)
           break
         case 'DECODE':
-          node.decodeMessage(msg)
+          node.decodeMessage(message)
           break
         default:
-          node.jwtVerify(msg, node.signature)
+          node.jwtVerify(message, node.signature)
       }
     })
   }

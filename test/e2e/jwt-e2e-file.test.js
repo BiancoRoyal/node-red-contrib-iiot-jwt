@@ -10,7 +10,7 @@
 
 'use strict'
 
-jest.setTimeout(20000)
+jest.setTimeout(10000)
 
 var injectNode = require('node-red/nodes/core/core/20-inject')
 var functionNode = require('node-red/nodes/core/core/80-function')
@@ -47,7 +47,7 @@ var testRS256PayloadFlow = [
     'algoType': 'FILE',
     'signature': '',
     'algoHash': '',
-    'privateKeyFile': '../test/e2e/keys/jwtRS256.key.pub',
+    'privateKeyFile': '../test/e2e/keys/private.pem',
     'algoFile': 'RS256',
     'tokenPayload': '',
     'selectedProperty': '',
@@ -107,7 +107,7 @@ var testRS256PayloadFlow = [
     'name': '',
     'algoType': 'FILE',
     'signature': '',
-    'publicKeyFile': '../test/e2e/keys/jwtRS256.key.pub',
+    'publicKeyFile': '../test/e2e/keys/public.pem',
     'tokenPayload': '',
     'selectedProperty': '',
     'entireMessage': false,
@@ -156,7 +156,7 @@ var testRS256MessageFlow = [
     'algoType': 'FILE',
     'signature': '',
     'algoHash': '',
-    'privateKeyFile': '../test/e2e/keys/jwtRS256.key.pub',
+    'privateKeyFile': '../test/e2e/keys/private.pem',
     'algoFile': 'RS256',
     'tokenPayload': '',
     'selectedProperty': '',
@@ -216,7 +216,7 @@ var testRS256MessageFlow = [
     'name': '',
     'algoType': 'FILE',
     'signature': '',
-    'publicKeyFile': '../test/e2e/keys/jwtRS256.key.pub',
+    'publicKeyFile': '../test/e2e/keys/public.pem',
     'tokenPayload': '',
     'selectedProperty': '',
     'entireMessage': true,
@@ -298,12 +298,12 @@ describe('JWT nodes e2e file Testing', function () {
         })
 
         n3.on('input', function (msg) {
-          expect(msg.data.payload).toEqual('test message')
+          expect(msg.payload).toEqual('test message')
           expect(msg.untrusted).toBe(true)
         })
 
         n4.on('input', function (msg) {
-          expect(msg.data.payload).toEqual('test message')
+          expect(msg.payload).toEqual('test message')
           expect(msg.untrusted).toBe(false)
           done()
         })

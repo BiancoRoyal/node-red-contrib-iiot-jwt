@@ -225,7 +225,7 @@ describe('JWT Out node Testing', function () {
         let n3 = helper.getNode('n3')
         n3.on('input', function (msg) {
           expect(msg.token).toBeDefined()
-          expect(msg.token).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.*./)
+          expect(msg.token).toMatch(/^eyJhbGciOiJIUzI1NiJ9.*./)
           done()
         })
       })
@@ -236,7 +236,7 @@ describe('JWT Out node Testing', function () {
         let n4 = helper.getNode('n4')
         n4.on('input', function (msg) {
           expect(msg.payload).toBeDefined()
-          expect(msg.payload).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.*./)
+          expect(msg.payload).toMatch(/^eyJhbGciOiJIUzI1NiJ9.*./)
           done()
         })
       })
@@ -246,7 +246,7 @@ describe('JWT Out node Testing', function () {
       helper.load([injectNode, outputNode], testNoneFlowPayload, function () {
         let n4 = helper.getNode('n4f2')
         n4.on('input', function (msg) {
-          expect(msg.payload).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.*./)
+          expect(msg.payload).toMatch(/^eyJhbGciOiJIUzI1NiJ9.*./)
           done()
         })
       })
