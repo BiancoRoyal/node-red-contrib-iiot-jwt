@@ -10,14 +10,16 @@
 # node-red-contrib-iiot-jwt
 The JSON Web Token (JWT) toolbox package for Node-RED.
 
-!!! UNDER DEVELOPMENT - START YOUR CONTRIBUTION !!!
-## [Support for the project straight away!][3]
-
+* v1.x is now LTS version until Oktober 2019 (branch 1.0)
 * based on jsonwebtoken library v8.x
+
+**If you like that contributor's package for JWT, then please give us your star at [GitHub][6]!**
+
+[You could also help as a backer of the project.][3]
 
 ### JWT Version
 
-JWT 8.1.x
+JWT 8.4.x
 
 ## Install
 
@@ -65,3 +67,4 @@ I'd like to give special thanks to [AuthO][2] for the jwt package!
 [3]:https://bianco-royal.cloud/supporter/
 [4]:https://www.npmjs.com/package/jsonwebtoken/
 [5]:https://jwt.io/
+[6]:https://github.com/biancode/node-red-contrib-iiot-jwt
