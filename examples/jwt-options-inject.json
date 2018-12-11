@@ -1,0 +1,591 @@
+[
+  {
+    "id": "25e8814c.189e76",
+    "type": "tab",
+    "label": "JWT Options Injected",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "2e9e94be.c27294",
+    "type": "JWT-OUT",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "algoHash": "HS512",
+    "privateKeyFile": "/Users/klaus/.ssh/jwtRS256.key.pub",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": false,
+    "issuer": "urn:issuer1",
+    "subject": "subject1",
+    "audience": "urn:foo1",
+    "jwtId": "5c0ecf0d5b28bd659a8a4625",
+    "tokenExpires": true,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": true,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 480,
+    "y": 160,
+    "wires": [
+      [
+        "137fb38d.1f2b4c",
+        "ad809de1.a85bd"
+      ]
+    ]
+  },
+  {
+    "id": "e347a834.107f48",
+    "type": "inject",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 150,
+    "y": 160,
+    "wires": [
+      [
+        "34dee285.63cd36"
+      ]
+    ]
+  },
+  {
+    "id": "137fb38d.1f2b4c",
+    "type": "debug",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 630,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "1a20574d.475b21",
+    "type": "JWT-IN",
+    "z": "25e8814c.189e76",
+    "name": "DECODE",
+    "algoType": "DECODE",
+    "signature": "",
+    "publicKeyFile": "/Users/klaus/.ssh/jwtRS256.pem",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": 1,
+    "clockToleranceUnit": "s",
+    "useMaxAge": false,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 810,
+    "y": 140,
+    "wires": [
+      [
+        "4cbdd489.8dc0dc"
+      ]
+    ]
+  },
+  {
+    "id": "4cbdd489.8dc0dc",
+    "type": "debug",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 1010,
+    "y": 140,
+    "wires": []
+  },
+  {
+    "id": "3d236890.683438",
+    "type": "JWT-IN",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "publicKeyFile": "/Users/klaus/.ssh/jwtRS256.key.pub",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": false,
+    "issuer": "urn:issuer",
+    "subject": "subject",
+    "audience": "urn:foo",
+    "jwtId": "5c0ecf0d5b28bd659a8a4625",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": 1,
+    "clockToleranceUnit": "s",
+    "useMaxAge": false,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 820,
+    "y": 200,
+    "wires": [
+      [
+        "123d7e9c.861191"
+      ]
+    ]
+  },
+  {
+    "id": "123d7e9c.861191",
+    "type": "debug",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 1010,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "ad809de1.a85bd",
+    "type": "delay",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "pauseType": "delay",
+    "timeout": "2",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 640,
+    "y": 160,
+    "wires": [
+      [
+        "1a20574d.475b21",
+        "3d236890.683438"
+      ]
+    ]
+  },
+  {
+    "id": "34dee285.63cd36",
+    "type": "function",
+    "z": "25e8814c.189e76",
+    "name": "options",
+    "func": "msg.jwt = {\n    options : {\n        audience: 'urn:foo', \n        issuer: 'urn:issuer', \n        jwtid: 'jwtid', \n        subject: 'subject' \n    }\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 320,
+    "y": 160,
+    "wires": [
+      [
+        "2e9e94be.c27294"
+      ]
+    ]
+  },
+  {
+    "id": "47385c43.fa24a4",
+    "type": "JWT-OUT",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "nodeRED",
+    "algoHash": "HS512",
+    "privateKeyFile": "/keys/jwtRS256.key.pub",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": false,
+    "issuer": "urn:issuer1",
+    "subject": "subject1",
+    "audience": "urn:foo1",
+    "jwtId": "5c0ecf0d5b28bd659a8a4625",
+    "tokenExpires": true,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": true,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 500,
+    "y": 380,
+    "wires": [
+      [
+        "8f23297c.ab69a",
+        "f4ed7e8c.719b2"
+      ]
+    ]
+  },
+  {
+    "id": "c81142.f6fe4ec",
+    "type": "inject",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 170,
+    "y": 380,
+    "wires": [
+      [
+        "56f20a04.8fbabc"
+      ]
+    ]
+  },
+  {
+    "id": "8f23297c.ab69a",
+    "type": "debug",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 650,
+    "y": 320,
+    "wires": []
+  },
+  {
+    "id": "c8be0b44.0b3e58",
+    "type": "JWT-IN",
+    "z": "25e8814c.189e76",
+    "name": "DECODE",
+    "algoType": "DECODE",
+    "signature": "",
+    "publicKeyFile": "/Users/klaus/.ssh/jwtRS256.pem",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": 1,
+    "clockToleranceUnit": "s",
+    "useMaxAge": false,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 830,
+    "y": 360,
+    "wires": [
+      [
+        "f8082642.d76fc"
+      ]
+    ]
+  },
+  {
+    "id": "f8082642.d76fc",
+    "type": "debug",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 1010,
+    "y": 360,
+    "wires": []
+  },
+  {
+    "id": "89f86e8b.6209c8",
+    "type": "JWT-IN",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "nodeRED",
+    "publicKeyFile": "/keys/jwtRS256.key.pub",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": false,
+    "issuer": "urn:issuer",
+    "subject": "subject",
+    "audience": "urn:foo",
+    "jwtId": "5c0ecf0d5b28bd659a8a4625",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": 1,
+    "clockToleranceUnit": "s",
+    "useMaxAge": false,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 840,
+    "y": 420,
+    "wires": [
+      [
+        "36e65337.9b2a84"
+      ]
+    ]
+  },
+  {
+    "id": "36e65337.9b2a84",
+    "type": "debug",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 1030,
+    "y": 420,
+    "wires": []
+  },
+  {
+    "id": "f4ed7e8c.719b2",
+    "type": "delay",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "pauseType": "delay",
+    "timeout": "2",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 660,
+    "y": 380,
+    "wires": [
+      [
+        "c8be0b44.0b3e58",
+        "89f86e8b.6209c8"
+      ]
+    ]
+  },
+  {
+    "id": "56f20a04.8fbabc",
+    "type": "function",
+    "z": "25e8814c.189e76",
+    "name": "options",
+    "func": "msg.jwt = {\n    options : {\n        audience: 'urn:foo', \n        issuer: 'urn:issuer', \n        jwtid: 'jwtid', \n        subject: 'subject' \n    }\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 340,
+    "y": 380,
+    "wires": [
+      [
+        "47385c43.fa24a4"
+      ]
+    ]
+  },
+  {
+    "id": "7ae8a409.bf784c",
+    "type": "JWT-OUT",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "algoType": "FILE",
+    "signature": "",
+    "algoHash": "HS512",
+    "privateKeyFile": "/Users/klaus/.ssh/private.pem",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": false,
+    "issuer": "urn:issuer1",
+    "subject": "subject1",
+    "audience": "urn:foo1",
+    "jwtId": "5c0ecf0d5b28bd659a8a4625",
+    "tokenExpires": true,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": true,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 500,
+    "y": 580,
+    "wires": [
+      [
+        "4944d72a.8678e8",
+        "fccbbbfd.439ab8"
+      ]
+    ]
+  },
+  {
+    "id": "195b4888.03c0ef",
+    "type": "inject",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 170,
+    "y": 580,
+    "wires": [
+      [
+        "b98721e3.53ca88"
+      ]
+    ]
+  },
+  {
+    "id": "4944d72a.8678e8",
+    "type": "debug",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 650,
+    "y": 520,
+    "wires": []
+  },
+  {
+    "id": "ba5fbdc2.22cad8",
+    "type": "JWT-IN",
+    "z": "25e8814c.189e76",
+    "name": "DECODE",
+    "algoType": "DECODE",
+    "signature": "",
+    "publicKeyFile": "/Users/klaus/.ssh/jwtRS256.pem",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": 1,
+    "clockToleranceUnit": "s",
+    "useMaxAge": false,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 830,
+    "y": 560,
+    "wires": [
+      [
+        "4670dc8b.7b51a4"
+      ]
+    ]
+  },
+  {
+    "id": "4670dc8b.7b51a4",
+    "type": "debug",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 1010,
+    "y": 560,
+    "wires": []
+  },
+  {
+    "id": "6d6f2701.97fc3",
+    "type": "JWT-IN",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "algoType": "FILE",
+    "signature": "",
+    "publicKeyFile": "/Users/klaus/.ssh/public.pem",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": false,
+    "issuer": "urn:issuer",
+    "subject": "subject",
+    "audience": "urn:foo",
+    "jwtId": "5c0ecf0d5b28bd659a8a4625",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": 1,
+    "clockToleranceUnit": "s",
+    "useMaxAge": false,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 840,
+    "y": 620,
+    "wires": [
+      [
+        "ea1e0441.9ddc"
+      ]
+    ]
+  },
+  {
+    "id": "ea1e0441.9ddc",
+    "type": "debug",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 1030,
+    "y": 620,
+    "wires": []
+  },
+  {
+    "id": "fccbbbfd.439ab8",
+    "type": "delay",
+    "z": "25e8814c.189e76",
+    "name": "",
+    "pauseType": "delay",
+    "timeout": "2",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 660,
+    "y": 580,
+    "wires": [
+      [
+        "ba5fbdc2.22cad8",
+        "6d6f2701.97fc3"
+      ]
+    ]
+  },
+  {
+    "id": "b98721e3.53ca88",
+    "type": "function",
+    "z": "25e8814c.189e76",
+    "name": "options",
+    "func": "msg.jwt = {\n    options : {\n        audience: 'urn:foo', \n        issuer: 'urn:issuer', \n        jwtid: 'jwtid', \n        subject: 'subject' \n    }\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 340,
+    "y": 580,
+    "wires": [
+      [
+        "7ae8a409.bf784c"
+      ]
+    ]
+  }
+]

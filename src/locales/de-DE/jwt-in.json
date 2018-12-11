@@ -1,0 +1,29 @@
+{
+  "jwt-iiot-contrib": {
+    "label": {
+      "signature": "Signatur",
+      "algoType": "Verify via",
+      "cert": "Zertifikat",
+      "useOptions": "Optionen nutzen",
+      "useMaxAge": "Max. Age nutzen",
+      "entireMessage": "Verify ganze Nachricht",
+      "showActivities": "Zeige Aktivitäten",
+      "showErrors": "Zeige Fehler"
+    },
+    "options" : {
+      "issuer": "Herausgeber (iss)",
+      "subject": "Betreff (sub)",
+      "audience": "Zielgruppe (aud)",
+      "ignoreExpiration": "Ignoriere Zeitablauf",
+      "clockTolerance": "Zeittoleranz",
+      "maxAge": "Max. Alter"
+    },
+    "header": {
+      "type": "Typ (typ)",
+      "contentType": "Inhaltstyp (cty)"
+    },
+    "tabs-label": {
+      "options": "Optionen"
+    }
+  }
+}

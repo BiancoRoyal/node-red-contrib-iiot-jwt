@@ -1,0 +1,28 @@
+{
+  "jwt-iiot-contrib": {
+    "label": {
+      "algoType": "Sign via",
+      "algo": "Algorithm",
+      "signature": "Signatur",
+      "cert": "Zertifikat",
+      "entireMessage": "Sign ganze Nachricht",
+      "useOptions": "Optionen nutzen",
+      "showActivities": "Zeige Aktivitäten",
+      "showErrors": "Zeige Fehler"
+    },
+    "options" : {
+      "issuer": "Herausgeber (iss)",
+      "subject": "Betreff (sub)",
+      "audience": "Zielgruppe (aud)",
+      "tokenExpires": "Läuft ab in",
+      "expiresIn": "Ablaufzeitpunkt (exp)",
+    },
+    "header": {
+      "type": "Typ (typ)",
+      "contentType": "Inhaltstyp (cty)"
+    },
+    "tabs-label": {
+      "options": "Optionen"
+    }
+  }
+}

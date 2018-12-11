@@ -25,10 +25,6 @@ function docIcons () {
   return src('src/icons/**/*').pipe(dest('docs/gen/icons'))
 }
 
-function releaseExamples () {
-  return src('examples/**/*').pipe(dest('jwt/examples'))
-}
-
 function docImages () {
   return src('images/**/*').pipe(dest('docs/gen/images'))
 }
@@ -78,6 +74,7 @@ function doc (cb) {
     .pipe(jsdoc(cb))
 }
 
+exports.clean = cleanProject
 exports.build = series(cleanProject, releaseWebContent, releaseJSContent, releaseLocal)
 exports.buildDocs = series(doc, docIcons, docImages)
-exports.publish = series(cleanProject, releaseWebContent, releaseJSContent, releaseLocal, releasePublicData, releaseIcons, doc, docIcons, docImages, releaseExamples)
+exports.publish = series(cleanProject, releaseWebContent, releaseJSContent, releaseLocal, releasePublicData, releaseIcons, doc, docIcons, docImages)

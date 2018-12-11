@@ -1,0 +1,25 @@
+{
+  "common": {
+    "label": {
+      "username": "User",
+      "password": "Passwort"
+    },
+    "status": {
+      "connected": "verbunden",
+      "not-connected": "nicht verbunden",
+      "disconnected": "getrennt",
+      "connecting": "verbinde",
+      "error": "Fehler"
+    }
+  },
+  "jwt-iiot-contrib": {
+    "common": {
+      "label": {
+        "type": "Typ",
+        "password": "Passwort",
+        "showActivities": "Zeige Statuswechsel",
+        "showErrors": "Zeige Fehler"
+      }
+    }
+  }
+}

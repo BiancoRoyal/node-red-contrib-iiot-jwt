@@ -1,0 +1,729 @@
+[
+  {
+    "id": "9f8b7e31.4a9038",
+    "type": "tab",
+    "label": "JWT with Otionals",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "1959ca15.991b16",
+    "type": "JWT-OUT",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "algoHash": "HS256",
+    "privateKeyFile": "",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear King",
+    "audience": "",
+    "jwtId": "5a43a1df21de68f36ea065c7",
+    "tokenExpires": true,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": true,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 320,
+    "y": 100,
+    "wires": [
+      [
+        "519d341e.e2cbcc",
+        "a2a826d0.e3f58"
+      ]
+    ]
+  },
+  {
+    "id": "7185ed85.3318dc",
+    "type": "inject",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 130,
+    "y": 100,
+    "wires": [
+      [
+        "1959ca15.991b16"
+      ]
+    ]
+  },
+  {
+    "id": "519d341e.e2cbcc",
+    "type": "debug",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 470,
+    "y": 60,
+    "wires": []
+  },
+  {
+    "id": "a2a826d0.e3f58",
+    "type": "JWT-IN",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "publicKeyFile": "",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear Lui",
+    "audience": "",
+    "jwtId": "",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": "2",
+    "clockToleranceUnit": "s",
+    "useMaxAge": true,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 530,
+    "y": 100,
+    "wires": [
+      [
+        "44d0d0c4.b1a0d8"
+      ]
+    ]
+  },
+  {
+    "id": "44d0d0c4.b1a0d8",
+    "type": "debug",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 710,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "id": "39af45b3.1b5ba2",
+    "type": "JWT-OUT",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "algoHash": "HS256",
+    "privateKeyFile": "",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear King",
+    "audience": "",
+    "jwtId": "5a43a1df21de68f36ea065c7",
+    "tokenExpires": true,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": true,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 320,
+    "y": 200,
+    "wires": [
+      [
+        "38772365.dc91a4",
+        "94ebad02.80a1c"
+      ]
+    ]
+  },
+  {
+    "id": "9acc61f3.a4863",
+    "type": "inject",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 130,
+    "y": 200,
+    "wires": [
+      [
+        "39af45b3.1b5ba2"
+      ]
+    ]
+  },
+  {
+    "id": "38772365.dc91a4",
+    "type": "debug",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 470,
+    "y": 160,
+    "wires": []
+  },
+  {
+    "id": "94ebad02.80a1c",
+    "type": "JWT-IN",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "algoType": "HASH",
+    "signature": "",
+    "publicKeyFile": "",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "5a43a1df21de68f36ea065c7",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": "2",
+    "clockToleranceUnit": "s",
+    "useMaxAge": true,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 530,
+    "y": 200,
+    "wires": [
+      [
+        "f094e733.a955c8"
+      ]
+    ]
+  },
+  {
+    "id": "f094e733.a955c8",
+    "type": "debug",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 710,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "d74a5514.3e23e",
+    "type": "JWT-OUT",
+    "z": "9f8b7e31.4a9038",
+    "name": "JWT Hash Sign",
+    "algoType": "HASH",
+    "signature": "",
+    "algoHash": "HS256",
+    "privateKeyFile": "",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": true,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear King",
+    "audience": "Gang of Apes",
+    "jwtId": "5a43a1df21de68f36ea065c7",
+    "tokenExpires": true,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": true,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 340,
+    "y": 380,
+    "wires": [
+      [
+        "1ec1d1df.0a3926",
+        "43728251.d97394"
+      ]
+    ]
+  },
+  {
+    "id": "79dd233f.6aa3f4",
+    "type": "inject",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 130,
+    "y": 380,
+    "wires": [
+      [
+        "d74a5514.3e23e"
+      ]
+    ]
+  },
+  {
+    "id": "1ec1d1df.0a3926",
+    "type": "debug",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 510,
+    "y": 340,
+    "wires": []
+  },
+  {
+    "id": "43728251.d97394",
+    "type": "JWT-IN",
+    "z": "9f8b7e31.4a9038",
+    "name": "JWT Hash Verify",
+    "algoType": "HASH",
+    "signature": "",
+    "publicKeyFile": "",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": true,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear King",
+    "audience": "Gang of Apes",
+    "jwtId": "5a43a1df21de68f36ea065c7",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": "2",
+    "clockToleranceUnit": "s",
+    "useMaxAge": true,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 540,
+    "y": 380,
+    "wires": [
+      [
+        "32c0122c.0c1586"
+      ]
+    ]
+  },
+  {
+    "id": "32c0122c.0c1586",
+    "type": "debug",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 710,
+    "y": 380,
+    "wires": []
+  },
+  {
+    "id": "8e3a9478.657038",
+    "type": "comment",
+    "z": "9f8b7e31.4a9038",
+    "name": "bad examples",
+    "info": "",
+    "x": 110,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "a29f4497.f6f9",
+    "type": "comment",
+    "z": "9f8b7e31.4a9038",
+    "name": "good examples",
+    "info": "if you use options, \nthen your value to sign has to bean object, \notherwise you get errors like \n\"Error: invalid expiresIn,notBefore,audience,\nissuer,subject,jwtid option for string payload\"",
+    "x": 120,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "b55e771a.9b843",
+    "type": "JWT-OUT",
+    "z": "9f8b7e31.4a9038",
+    "name": "JWT File Sign",
+    "algoType": "FILE",
+    "signature": "",
+    "algoHash": "HS256",
+    "privateKeyFile": "../examples/keys/private.pem",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": true,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear King",
+    "audience": "",
+    "jwtId": "5a43a1df21de68f36ea065c7",
+    "tokenExpires": true,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": true,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 340,
+    "y": 640,
+    "wires": [
+      [
+        "4dc9b54.4af3dcc",
+        "138751ac.ae41be"
+      ]
+    ]
+  },
+  {
+    "id": "4bc00b58.581544",
+    "type": "inject",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 130,
+    "y": 640,
+    "wires": [
+      [
+        "b55e771a.9b843"
+      ]
+    ]
+  },
+  {
+    "id": "4dc9b54.4af3dcc",
+    "type": "debug",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 510,
+    "y": 600,
+    "wires": []
+  },
+  {
+    "id": "138751ac.ae41be",
+    "type": "JWT-IN",
+    "z": "9f8b7e31.4a9038",
+    "name": "JWT File Verify",
+    "algoType": "FILE",
+    "signature": "",
+    "publicKeyFile": "../examples/keys/public.pem",
+    "tokenPayload": "",
+    "selectedProperty": "",
+    "entireMessage": true,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "5a43a1df21de68f36ea065c7",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": "2",
+    "clockToleranceUnit": "s",
+    "useMaxAge": true,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 540,
+    "y": 640,
+    "wires": [
+      [
+        "485e6e0a.cd28e"
+      ]
+    ]
+  },
+  {
+    "id": "485e6e0a.cd28e",
+    "type": "debug",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 710,
+    "y": 640,
+    "wires": []
+  },
+  {
+    "id": "5cf5674d.0d1798",
+    "type": "JWT-OUT",
+    "z": "9f8b7e31.4a9038",
+    "name": "JWT File Sign",
+    "algoType": "FILE",
+    "signature": "",
+    "algoHash": "HS256",
+    "privateKeyFile": "../examples/keys/private.pem",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear King",
+    "audience": "Gang of Apes",
+    "jwtId": "5c0f7d8bfd3ca6c486c82fad",
+    "tokenExpires": true,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": true,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 340,
+    "y": 760,
+    "wires": [
+      [
+        "b47773d7.256b3",
+        "cba15153.922de"
+      ]
+    ]
+  },
+  {
+    "id": "b47773d7.256b3",
+    "type": "debug",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 510,
+    "y": 720,
+    "wires": []
+  },
+  {
+    "id": "cba15153.922de",
+    "type": "JWT-IN",
+    "z": "9f8b7e31.4a9038",
+    "name": "JWT File Verify",
+    "algoType": "FILE",
+    "signature": "",
+    "publicKeyFile": "../examples/keys/public.pem",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear King",
+    "audience": "Gang of Apes",
+    "jwtId": "5c0f7d8bfd3ca6c486c82fad",
+    "ignoreExpiration": true,
+    "ignoreNotBefore": false,
+    "clockTolerance": "2",
+    "clockToleranceUnit": "s",
+    "useMaxAge": true,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 540,
+    "y": 760,
+    "wires": [
+      [
+        "a4b12908.34163"
+      ]
+    ]
+  },
+  {
+    "id": "a4b12908.34163",
+    "type": "debug",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 710,
+    "y": 760,
+    "wires": []
+  },
+  {
+    "id": "19b11bc7.97ef6c",
+    "type": "JWT-OUT",
+    "z": "9f8b7e31.4a9038",
+    "name": "JWT Hash Sign",
+    "algoType": "HASH",
+    "signature": "",
+    "algoHash": "HS256",
+    "privateKeyFile": "",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear King",
+    "audience": "Gang of Apes",
+    "jwtId": "5c0f7bb1fd3ca6c486c82fac",
+    "tokenExpires": true,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": true,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 340,
+    "y": 500,
+    "wires": [
+      [
+        "6c129f37.6975c8",
+        "8a1c9059.f2277"
+      ]
+    ]
+  },
+  {
+    "id": "6c129f37.6975c8",
+    "type": "debug",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 510,
+    "y": 460,
+    "wires": []
+  },
+  {
+    "id": "8a1c9059.f2277",
+    "type": "JWT-IN",
+    "z": "9f8b7e31.4a9038",
+    "name": "JWT Hash Verify",
+    "algoType": "HASH",
+    "signature": "",
+    "publicKeyFile": "",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": true,
+    "useOptions": true,
+    "issuer": "King Lui",
+    "subject": "Dear King",
+    "audience": "Gang of Apes",
+    "jwtId": "5c0f7bb1fd3ca6c486c82fac",
+    "ignoreExpiration": true,
+    "ignoreNotBefore": false,
+    "clockTolerance": "2",
+    "clockToleranceUnit": "s",
+    "useMaxAge": true,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 540,
+    "y": 500,
+    "wires": [
+      [
+        "791c43cc.451464"
+      ]
+    ]
+  },
+  {
+    "id": "791c43cc.451464",
+    "type": "debug",
+    "z": "9f8b7e31.4a9038",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 710,
+    "y": 500,
+    "wires": []
+  },
+  {
+    "id": "357c42cf.c6a19e",
+    "type": "inject",
+    "z": "9f8b7e31.4a9038",
+    "name": "object is great",
+    "topic": "",
+    "payload": "{\"message\":\"test message\"}",
+    "payloadType": "json",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 130,
+    "y": 500,
+    "wires": [
+      [
+        "19b11bc7.97ef6c"
+      ]
+    ]
+  },
+  {
+    "id": "19e7c711.eed961",
+    "type": "inject",
+    "z": "9f8b7e31.4a9038",
+    "name": "string is wrong",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 140,
+    "y": 460,
+    "wires": [
+      [
+        "19b11bc7.97ef6c"
+      ]
+    ]
+  },
+  {
+    "id": "ff8de8a9.5626e8",
+    "type": "inject",
+    "z": "9f8b7e31.4a9038",
+    "name": "object is great",
+    "topic": "",
+    "payload": "{\"message\":\"test message\"}",
+    "payloadType": "json",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 130,
+    "y": 760,
+    "wires": [
+      [
+        "5cf5674d.0d1798"
+      ]
+    ]
+  },
+  {
+    "id": "f5e991e2.df2c78",
+    "type": "inject",
+    "z": "9f8b7e31.4a9038",
+    "name": "string is wrong",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 140,
+    "y": 720,
+    "wires": [
+      [
+        "5cf5674d.0d1798"
+      ]
+    ]
+  }
+]

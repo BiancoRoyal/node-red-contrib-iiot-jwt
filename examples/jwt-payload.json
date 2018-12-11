@@ -1,15 +1,15 @@
 [
   {
-    "id": "bc2e7f6e.fb27e8",
+    "id": "2c620f56.55cb68",
     "type": "tab",
     "label": "JWT Payload",
     "disabled": false,
     "info": ""
   },
   {
-    "id": "82ccf735.06142",
+    "id": "13eadad5.9fa3cd",
     "type": "JWT-OUT",
-    "z": "bc2e7f6e.fb27e8",
+    "z": "2c620f56.55cb68",
     "name": "",
     "algoType": "HASH",
     "signature": "",
@@ -35,34 +35,36 @@
     "y": 100,
     "wires": [
       [
-        "ea7ea483.539f68",
-        "2183b30d.a5ea34"
+        "eaeed6dc.1097f",
+        "1a62505.27662b",
+        "485c9020.c86568"
       ]
     ]
   },
   {
-    "id": "e5ea979.dbb7ae8",
+    "id": "7151d72b.3b419",
     "type": "inject",
-    "z": "bc2e7f6e.fb27e8",
+    "z": "2c620f56.55cb68",
     "name": "",
     "topic": "",
     "payload": "test message",
     "payloadType": "str",
     "repeat": "",
     "crontab": "",
-    "once": true,
-    "x": 140,
+    "once": false,
+    "onceDelay": "",
+    "x": 130,
     "y": 100,
     "wires": [
       [
-        "82ccf735.06142"
+        "13eadad5.9fa3cd"
       ]
     ]
   },
   {
-    "id": "ea7ea483.539f68",
+    "id": "eaeed6dc.1097f",
     "type": "debug",
-    "z": "bc2e7f6e.fb27e8",
+    "z": "2c620f56.55cb68",
     "name": "",
     "active": true,
     "console": "false",
@@ -72,9 +74,9 @@
     "wires": []
   },
   {
-    "id": "2183b30d.a5ea34",
+    "id": "1a62505.27662b",
     "type": "JWT-IN",
-    "z": "bc2e7f6e.fb27e8",
+    "z": "2c620f56.55cb68",
     "name": "",
     "algoType": "HASH",
     "signature": "",
@@ -99,20 +101,219 @@
     "y": 100,
     "wires": [
       [
-        "79600b18.df9b54"
+        "a4ba2e7e.b1fe48"
       ]
     ]
   },
   {
-    "id": "79600b18.df9b54",
+    "id": "a4ba2e7e.b1fe48",
     "type": "debug",
-    "z": "bc2e7f6e.fb27e8",
+    "z": "2c620f56.55cb68",
     "name": "",
     "active": true,
     "console": "false",
     "complete": "true",
     "x": 610,
     "y": 100,
+    "wires": []
+  },
+  {
+    "id": "2e5c0b67.1751c4",
+    "type": "JWT-OUT",
+    "z": "2c620f56.55cb68",
+    "name": "",
+    "algoType": "FILE",
+    "signature": "",
+    "algoHash": "HS256",
+    "privateKeyFile": "../examples/keys/private.pem",
+    "algoFile": "RS256",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": false,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "tokenExpires": false,
+    "expiresIn": 60,
+    "expiresInUnit": "s",
+    "tokenNotBefore": false,
+    "notBefore": 1,
+    "notBeforeUnit": "s",
+    "x": 300,
+    "y": 260,
+    "wires": [
+      [
+        "cf2b1b0d.769e3",
+        "6f4c64c4.b8c6d4",
+        "6660f88d.b9e5d8"
+      ]
+    ]
+  },
+  {
+    "id": "4cadfbe8.59049c",
+    "type": "inject",
+    "z": "2c620f56.55cb68",
+    "name": "",
+    "topic": "",
+    "payload": "test message",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 130,
+    "y": 260,
+    "wires": [
+      [
+        "2e5c0b67.1751c4"
+      ]
+    ]
+  },
+  {
+    "id": "cf2b1b0d.769e3",
+    "type": "debug",
+    "z": "2c620f56.55cb68",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 450,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "6f4c64c4.b8c6d4",
+    "type": "JWT-IN",
+    "z": "2c620f56.55cb68",
+    "name": "",
+    "algoType": "FILE",
+    "signature": "",
+    "publicKeyFile": "../examples/keys/public.pem",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": false,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": 1,
+    "clockToleranceUnit": "s",
+    "useMaxAge": false,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 470,
+    "y": 260,
+    "wires": [
+      [
+        "16d23462.b86c24"
+      ]
+    ]
+  },
+  {
+    "id": "16d23462.b86c24",
+    "type": "debug",
+    "z": "2c620f56.55cb68",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 630,
+    "y": 260,
+    "wires": []
+  },
+  {
+    "id": "6660f88d.b9e5d8",
+    "type": "JWT-IN",
+    "z": "2c620f56.55cb68",
+    "name": "JWT Decode",
+    "algoType": "DECODE",
+    "signature": "",
+    "publicKeyFile": "",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": false,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": 1,
+    "clockToleranceUnit": "s",
+    "useMaxAge": false,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 470,
+    "y": 320,
+    "wires": [
+      [
+        "921a2940.1eb9f"
+      ]
+    ]
+  },
+  {
+    "id": "921a2940.1eb9f",
+    "type": "debug",
+    "z": "2c620f56.55cb68",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 630,
+    "y": 320,
+    "wires": []
+  },
+  {
+    "id": "485c9020.c86568",
+    "type": "JWT-IN",
+    "z": "2c620f56.55cb68",
+    "name": "JWT Decode",
+    "algoType": "DECODE",
+    "signature": "",
+    "publicKeyFile": "",
+    "tokenPayload": "",
+    "selectedProperty": "payload",
+    "entireMessage": false,
+    "showErrors": false,
+    "useOptions": false,
+    "issuer": "",
+    "subject": "",
+    "audience": "",
+    "jwtId": "",
+    "ignoreExpiration": false,
+    "ignoreNotBefore": false,
+    "clockTolerance": 1,
+    "clockToleranceUnit": "s",
+    "useMaxAge": false,
+    "maxAge": 120,
+    "maxAgeUnit": "s",
+    "x": 470,
+    "y": 160,
+    "wires": [
+      [
+        "92292e21.80cab"
+      ]
+    ]
+  },
+  {
+    "id": "92292e21.80cab",
+    "type": "debug",
+    "z": "2c620f56.55cb68",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 630,
+    "y": 160,
     "wires": []
   }
 ]

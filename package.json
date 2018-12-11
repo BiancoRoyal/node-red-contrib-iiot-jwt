@@ -14,14 +14,13 @@
     "underscore": "1.9.1"
   },
   "keywords": [
-    "node-red",
-    "biancode",
+    "jwt",
     "jsonwebtoken",
     "webtoken",
-    "jwt",
-    "iiot",
+    "node-red",
     "modbus",
-    "opcua"
+    "opcua",
+    "iiot"
   ],
   "author": "Klaus Landsdorf <klaus.landsdorf@bianco-royal.de>",
   "license": "MIT",
