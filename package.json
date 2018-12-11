@@ -43,7 +43,7 @@
     "test:clearCache": "gulp clean && jest --clearCache",
     "coverage": "standard --fix && jest --coverage --verbose --debug",
     "coverage:ci": "standard --fix && jest --coverage --verbose --detectOpenHandles --forceExit --logHeapUsage --ci --debug",
-    "coverage:upload": "cat ./jcoverage/lcov.info | codacy-coverage --token 0ec6d71df1cc48898d0bccbb901ef846",
+    "coverage:upload": "cat ./jcoverage/lcov.info | codacy-coverage --token c33a8fff146d49558e0e92ea385fa512",
     "build": "standard --fix && gulp publish",
     "prepublishOnly": "npm test && npm run coverage && npm run build",
     "ci-publish": "ci-publish",
