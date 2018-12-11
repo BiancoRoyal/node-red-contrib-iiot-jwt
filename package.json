@@ -70,7 +70,6 @@
     "gulp-htmlmin": "^5.0.1",
     "gulp-jsdoc3": "^2.0.0",
     "gulp-obfuscate": "^0.2.9",
-    "gulp-sequence": "^1.0.0",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.1",
     "jest": "^23.6.0",
