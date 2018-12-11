@@ -38,7 +38,7 @@ try these options on npm install to build, if you have problems to install
 ## Contributing
 
 Let's work together! 
-Please read and in best case accept [CONTRIBUTING](CONTRIBUTING.md) by your sign and send it via E-Mail.
+Please read and in best case accept [CONTRIBUTING](.github/CONTRIBUTING.md) by your sign and send it via E-Mail.
 You could also send just a pull request.
 
 ### TODO
