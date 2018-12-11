@@ -45,7 +45,7 @@
     "coverage:ci": "standard --fix && jest --coverage --verbose --detectOpenHandles --forceExit --logHeapUsage --ci --debug",
     "coverage:upload": "cat ./jcoverage/lcov.info | codacy-coverage --token 0ec6d71df1cc48898d0bccbb901ef846",
     "build": "standard --fix && gulp publish",
-    "prepublishOnly": "npm test && npm run build",
+    "prepublishOnly": "npm test && npm run coverage && npm run build",
     "ci-publish": "ci-publish",
     "release": "standard-version -a",
     "rewrite-changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
