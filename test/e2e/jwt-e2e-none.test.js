@@ -211,16 +211,22 @@ describe('JWT nodes e2e unsigned Testing', function () {
   })
 
   describe('Node payload OUT to IN', function () {
-    it('should transfer unsigned message', function (done) {
+    it('should transfer unsigned message node2', function (done) {
       helper.load(jwtNodeSet, testUnsignedPayloadFlow, function () {
         let n2 = helper.getNode('n2f1')
-        let n3 = helper.getNode('n3f1')
 
         n2.on('input', function (msg) {
           expect(msg.payload).toEqual({
             'text': 'test content'
           })
+          done()
         })
+      })
+    })
+
+    it('should transfer unsigned message node3', function (done) {
+      helper.load(jwtNodeSet, testUnsignedPayloadFlow, function () {
+        let n3 = helper.getNode('n3f1')
 
         n3.on('input', function (msg) {
           expect(msg.payload).toEqual({
@@ -233,14 +239,20 @@ describe('JWT nodes e2e unsigned Testing', function () {
   })
 
   describe('Node message OUT to IN', function () {
-    it('should transfer unsigned message', function (done) {
+    it('should transfer unsigned message node2', function (done) {
       helper.load(jwtNodeSet, testEntireUnsignedMessageFlow, function () {
         let n2 = helper.getNode('n2f2')
-        let n3 = helper.getNode('n3f2')
 
         n2.on('input', function (msg) {
-          expect(msg).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9/)
+          expect(msg.payload).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9/)
+          done()
         })
+      })
+    })
+
+    it('should transfer unsigned message node3', function (done) {
+      helper.load(jwtNodeSet, testEntireUnsignedMessageFlow, function () {
+        let n3 = helper.getNode('n3f2')
 
         n3.on('input', function (msg) {
           expect(msg.payload).toEqual('test message')

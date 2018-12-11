@@ -110,7 +110,6 @@ const testOptionalsHashMessageFlow = [
   {
     'id': 'e347a834.107f48',
     'type': 'inject',
-    'z': '25e8814c.189e76',
     'name': '',
     'topic': '',
     'payload': 'test message',
@@ -138,7 +137,7 @@ const testOptionalsHashMessageFlow = [
     'tokenPayload': '',
     'selectedProperty': '',
     'entireMessage': true,
-    'showErrors': true,
+    'showErrors': false,
     'useOptions': true,
     'issuer': 'urn:issuer',
     'subject': 'subject',
@@ -191,7 +190,7 @@ const testOptionalsHashMessageFlow = [
     'tokenPayload': '',
     'selectedProperty': '',
     'entireMessage': true,
-    'showErrors': true,
+    'showErrors': false,
     'useOptions': false,
     'issuer': '',
     'subject': '',
@@ -219,7 +218,7 @@ const testOptionalsHashMessageFlow = [
     'tokenPayload': '',
     'selectedProperty': '',
     'entireMessage': true,
-    'showErrors': true,
+    'showErrors': false,
     'useOptions': true,
     'issuer': 'urn:issuer',
     'subject': 'subject',
@@ -551,14 +550,20 @@ describe('JWT nodes e2e hash Testing', function () {
   })
 
   describe('Node message OUT to IN', function () {
-    it('should transfer signed message', function (done) {
+    it('should transfer signed message node2', function (done) {
       helper.load(jwtNodeSet, testEntireMessageFlow, function () {
         let n2 = helper.getNode('n2f1')
-        let n3 = helper.getNode('n3f1')
 
         n2.on('input', function (msg) {
-          expect(msg).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9/)
+          expect(msg.payload).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9/)
+          done()
         })
+      })
+    })
+
+    it('should transfer signed message node3', function (done) {
+      helper.load(jwtNodeSet, testEntireMessageFlow, function () {
+        let n3 = helper.getNode('n3f1')
 
         n3.on('input', function (msg) {
           expect(msg.payload).toEqual('test message')
@@ -570,20 +575,32 @@ describe('JWT nodes e2e hash Testing', function () {
   })
 
   describe('Node message with optionals OUT to IN', function () {
-    it('should transfer signed hash message', function (done) {
+    it('should transfer signed hash message with optionals node2', function (done) {
       helper.load(jwtNodeSet, testOptionalsHashMessageFlow, function () {
         let n2 = helper.getNode('n2f2')
-        let n4 = helper.getNode('n4f2')
-        let n5 = helper.getNode('n5f2')
 
         n2.on('input', function (msg) {
-          expect(msg).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9/)
+          expect(msg.payload).toMatch(/^eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9/)
+          done()
         })
+      })
+    })
+
+    it('should transfer signed hash message with optionals node4', function (done) {
+      helper.load(jwtNodeSet, testOptionalsHashMessageFlow, function () {
+        let n4 = helper.getNode('n4f2')
 
         n4.on('input', function (msg) {
-          expect(msg.payload).toEqual('test message')
-          expect(msg.untrusted).toBe(false)
+          expect(msg.payload.payload).toEqual('test message')
+          expect(msg.untrusted).toBe(true)
+          done()
         })
+      })
+    })
+
+    it('should transfer signed hash message with optionals node5', function (done) {
+      helper.load(jwtNodeSet, testOptionalsHashMessageFlow, function () {
+        let n5 = helper.getNode('n5f2')
 
         n5.on('input', function (msg) {
           expect(msg.payload).toEqual('test message')
@@ -595,15 +612,20 @@ describe('JWT nodes e2e hash Testing', function () {
   })
 
   describe('Node message with injected optionals OUT to IN', function () {
-    it('should transfer signed hash message', function (done) {
+    it('should sign message with injected optionals node2', function (done) {
       helper.load(jwtNodeSet, testMsgOptionalsHashMessageFlow, function () {
         let n2 = helper.getNode('n2f3')
-        let n4 = helper.getNode('n4f3')
-        let n5 = helper.getNode('n5f3')
 
         n2.on('input', function (msg) {
-          expect(msg).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9/)
+          expect(msg.payload).toMatch(/^eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9/)
+          done()
         })
+      })
+    })
+
+    it('should sign message with injected optionals node4', function (done) {
+      helper.load(jwtNodeSet, testMsgOptionalsHashMessageFlow, function () {
+        let n4 = helper.getNode('n4f3')
 
         n4.on('input', function (msg) {
           expect(msg.payload.payload).toEqual('test message')
@@ -613,7 +635,14 @@ describe('JWT nodes e2e hash Testing', function () {
           expect(msg.payload.sub).toBe('subject')
           expect(msg.payload.jti).toBe('jwtid')
           expect(msg.untrusted).toBe(true)
+          done()
         })
+      })
+    })
+
+    it('should sign message with injected optionals node5', function (done) {
+      helper.load(jwtNodeSet, testMsgOptionalsHashMessageFlow, function () {
+        let n5 = helper.getNode('n5f3')
 
         n5.on('input', function (msg) {
           expect(msg.payload).toEqual('test message')
@@ -630,21 +659,33 @@ describe('JWT nodes e2e hash Testing', function () {
   })
 
   describe('Node property with injected unused optionals OUT to IN', function () {
-    it('should transfer signed hash message', function (done) {
+    it('should sign property with injected unused optionals node2', function (done) {
       helper.load(jwtNodeSet, testMsgOptionalsHashPropertyFlow, function () {
         let n2 = helper.getNode('n2f4')
-        let n4 = helper.getNode('n4f4')
-        let n5 = helper.getNode('n5f4')
 
         n2.on('input', function (msg) {
-          expect(msg).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9/)
+          expect(msg.token).toMatch(/^eyJhbGciOiJIUzUxMiJ9/)
+          done()
         })
+      })
+    })
+
+    it('should sign property with injected unused optionals node4', function (done) {
+      helper.load(jwtNodeSet, testMsgOptionalsHashPropertyFlow, function () {
+        let n4 = helper.getNode('n4f4')
 
         n4.on('input', function (msg) {
-          expect(msg.payload.payload).toEqual('test message')
-          expect(msg.payload.jwt.options).toBeDefined()
+          expect(msg.payload).toEqual('test message')
+          expect(msg.jwt.options).toBeDefined()
           expect(msg.untrusted).toBe(true)
+          done()
         })
+      })
+    })
+
+    it('should sign property with injected unused optionals node5', function (done) {
+      helper.load(jwtNodeSet, testMsgOptionalsHashPropertyFlow, function () {
+        let n5 = helper.getNode('n5f4')
 
         n5.on('input', function (msg) {
           expect(msg.payload).toEqual('test message')

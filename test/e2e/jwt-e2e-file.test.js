@@ -262,20 +262,33 @@ describe('JWT nodes e2e file Testing', function () {
   })
 
   describe('Node payload OUT to IN', function () {
-    it('should transfer file signed content', function (done) {
+    it('should transfer file signed content node2', function (done) {
       helper.load(jwtNodeSet, testRS256PayloadFlow, function () {
         let n2 = helper.getNode('n2f1')
-        let n3 = helper.getNode('n3f1')
-        let n4 = helper.getNode('n4f1')
 
         n2.on('input', function (msg) {
-          expect(msg).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9/)
+          expect(msg.payload).toBe('test content')
+          expect(msg.token).toMatch(/^eyJhbGciOiJSUzI1NiJ9/)
+          done()
         })
+      })
+    })
+
+    it('should transfer file signed content node3', function (done) {
+      helper.load(jwtNodeSet, testRS256PayloadFlow, function () {
+        let n3 = helper.getNode('n3f1')
 
         n3.on('input', function (msg) {
           expect(msg.payload).toEqual('test content')
           expect(msg.untrusted).toBe(true)
+          done()
         })
+      })
+    })
+
+    it('should transfer file signed content', function (done) {
+      helper.load(jwtNodeSet, testRS256PayloadFlow, function () {
+        let n4 = helper.getNode('n4f1')
 
         n4.on('input', function (msg) {
           expect(msg.payload).toEqual('test content')
@@ -287,20 +300,32 @@ describe('JWT nodes e2e file Testing', function () {
   })
 
   describe('Node message OUT to IN', function () {
-    it('should transfer file signed message', function (done) {
+    it('should transfer file signed message node2', function (done) {
       helper.load(jwtNodeSet, testRS256MessageFlow, function () {
         let n2 = helper.getNode('n2f1')
-        let n3 = helper.getNode('n3f1')
-        let n4 = helper.getNode('n4f1')
 
         n2.on('input', function (msg) {
-          expect(msg).toMatch(/^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9/)
+          expect(msg.payload).toMatch(/^eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9/)
+          done()
         })
+      })
+    })
+
+    it('should transfer file signed message node3', function (done) {
+      helper.load(jwtNodeSet, testRS256MessageFlow, function () {
+        let n3 = helper.getNode('n3f1')
 
         n3.on('input', function (msg) {
-          expect(msg.payload).toEqual('test message')
+          expect(msg.payload.payload).toEqual('test message')
           expect(msg.untrusted).toBe(true)
+          done()
         })
+      })
+    })
+
+    it('should transfer file signed message node4', function (done) {
+      helper.load(jwtNodeSet, testRS256MessageFlow, function () {
+        let n4 = helper.getNode('n4f1')
 
         n4.on('input', function (msg) {
           expect(msg.payload).toEqual('test message')
