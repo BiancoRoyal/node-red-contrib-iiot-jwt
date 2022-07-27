@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "debug": "4.1.0",
-    "jsonwebtoken": "8.4.0",
+    "jsonwebtoken": "8.5.1",
     "bson": "4.0.1",
     "underscore": "1.9.1"
   },
