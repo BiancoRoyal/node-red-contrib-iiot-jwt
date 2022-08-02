@@ -10,56 +10,17 @@
 
 'use strict'
 
-var injectNode = require('node-red/nodes/core/core/20-inject')
-var functionNode = require('node-red/nodes/core/core/80-function')
+jest.setTimeout(10000)
+
+const injectNode = require("@node-red/nodes/core/common/20-inject");
+const functionNode = require("@node-red/nodes/core/function/10-function");
+
 var inputNode = require('../src/jwt-in.js')
 
 var helper = require('node-red-node-test-helper')
 helper.init(require.resolve('node-red'))
 
-var testFlowPayload = [
-  {
-    'id': 'n1',
-    'type': 'inject',
-    'payload': 'eyJhbGciOiJIUzI1NiJ9.VGVzdA.QrGSd49pBydy_lJuAiCbNVG7_F6inUTJub7k_FpW7Tk',
-    'payloadType': 'str',
-    'once': true,
-    'wires': [['n2', 'n3']]
-  },
-  { id: 'n2', type: 'helper' },
-  {
-    'id': 'n3',
-    'type': 'JWT-IN',
-    'selectedProperty': 'payload',
-    'wires': [['n4']]
-  },
-  { id: 'n4', type: 'helper' }
-]
-
-var testFlowToken = [
-  {
-    'id': 'n1',
-    'type': 'inject',
-    'payload': 'Test',
-    'payloadType': 'str',
-    'once': true,
-    'wires': [['n2', 'n3']]
-  },
-  { 'id': 'n2',
-    'type': 'function',
-    'func': "msg.token = 'eyJhbGciOiJIUzI1NiJ9.Tm9kZS1SRUQtSldU.-5uQr1GLmUwjw2b1DF8gWptQ3C1TKGppSBu5sV-MPEk';\nreturn msg;",
-    'outputs': 1,
-    'noerr': 0,
-    'wires': [['n3', 'n4']]
-  },
-  { id: 'n3', type: 'helper' },
-  {
-    'id': 'n4',
-    'type': 'JWT-IN',
-    'wires': [['n5']]
-  },
-  { id: 'n5', type: 'helper' }
-]
+const flows = require("./flows/in-flows");
 
 describe('JWT In node Testing', function () {
   beforeAll(function (done) {
@@ -102,7 +63,7 @@ describe('JWT In node Testing', function () {
     })
 
     it('should get a message', function (done) {
-      helper.load([injectNode, inputNode], testFlowPayload, function () {
+      helper.load([injectNode, inputNode], flows.testFlowPayload, function () {
         let n2 = helper.getNode('n2')
         n2.on('input', function (msg) {
           expect(msg.payload).toBe('eyJhbGciOiJIUzI1NiJ9.VGVzdA.QrGSd49pBydy_lJuAiCbNVG7_F6inUTJub7k_FpW7Tk')
@@ -112,7 +73,7 @@ describe('JWT In node Testing', function () {
     })
 
     it('should verify a message', function (done) {
-      helper.load([injectNode, inputNode], testFlowPayload, function () {
+      helper.load([injectNode, inputNode], flows.testFlowPayload, function () {
         let n4 = helper.getNode('n4')
         n4.on('input', function (msg) {
           expect(msg.payload).toBe('Test')
@@ -122,7 +83,7 @@ describe('JWT In node Testing', function () {
     })
 
     it('should have a verified token', function (done) {
-      helper.load([injectNode, functionNode, inputNode], testFlowToken, function () {
+      helper.load([injectNode, functionNode, inputNode], flows.testFlowToken, function () {
         let n5 = helper.getNode('n5')
         n5.on('input', function (msg) {
           expect(msg.token).toBe('Node-RED-JWT')

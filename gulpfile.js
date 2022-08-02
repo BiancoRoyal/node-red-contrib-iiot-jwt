@@ -83,25 +83,25 @@ function releaseJSContent (cb) {
   const anchor = '// SOURCE-MAP-REQUIRED'
 
   pump([
-      src('src/**/*.js')
-        .pipe(sourcemaps.init({ loadMaps: true }))
-        .pipe(replace(anchor, 'require(\'source-map-support\').install()'))
-        .pipe(babel({ presets: ['@babel/env'] }))
-        .pipe(uglify())
-        .pipe(sourcemaps.write('maps')), dest('jwt')],
-    cb)
+    src('src/**/*.js')
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(replace(anchor, 'require(\'source-map-support\').install()'))
+      .pipe(babel({ presets: ['@babel/env'] }))
+      .pipe(uglify())
+      .pipe(sourcemaps.write('maps')), dest('jwt')],
+  cb)
 }
 
 function codeJSContent (cb) {
   const anchor = '// SOURCE-MAP-REQUIRED'
 
   pump([
-      src('src/**/*.js')
-        .pipe(sourcemaps.init({ loadMaps: true }))
-        .pipe(replace(anchor, 'require(\'source-map-support\').install()'))
-        .pipe(babel({ presets: ['@babel/env'] }))
-        .pipe(sourcemaps.write('maps')), dest('code')],
-    cb)
+    src('src/**/*.js')
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(replace(anchor, 'require(\'source-map-support\').install()'))
+      .pipe(babel({ presets: ['@babel/env'] }))
+      .pipe(sourcemaps.write('maps')), dest('code')],
+  cb)
 }
 
 function doc (cb) {

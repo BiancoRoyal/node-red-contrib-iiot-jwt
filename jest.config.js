@@ -1,12 +1,16 @@
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
+  preset: 'ts-jest',
+
   // All imported modules in your tests should be mocked automatically
   automock: false,
 
   // Stop running tests after the first failure
-  bail: true,
+  bail: false,
 
   // Respect "browser" field in package.json when resolving modules
   // browser: false,
@@ -30,17 +34,14 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/code/',
-    '<rootDir>/opcuaIIoT/',
+    '<rootDir>/opcuaCompact/',
     '<rootDir>/test/',
     '<rootDir>/src/public/'
   ],
 
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: [
-    'json',
-    'text',
-    'lcov',
-    'clover'
+    'json-summary'
   ],
 
   // An object that configures minimum threshold enforcement for coverage results
@@ -63,7 +64,7 @@ module.exports = {
 
   // An array of directory names to be searched recursively up from the requiring module's location
   moduleDirectories: [
-    '<rootDir>/node_modules/'
+    'node_modules'
   ],
 
   // An array of file extensions your modules use
@@ -149,7 +150,7 @@ module.exports = {
     '<rootDir>/node_modules/',
     '<rootDir>/code/',
     '<rootDir>/jcoverage/',
-    '<rootDir>/opcuaIIoT/',
+    '<rootDir>/opcuaCompact/',
     '<rootDir>/src/'
   ],
 
@@ -166,7 +167,9 @@ module.exports = {
   // testURL: "http://localhost",
 
   // Setting this value to "fake" allows the use of fake timers for functions such as "setTimeout"
-  timers: 'real',
+  fakeTimers: {
+    enableGlobally: false
+  },
 
   // A map from regular expressions to paths to transformers
   // transform: null,

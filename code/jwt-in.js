@@ -9,47 +9,43 @@
 
 module.exports = function (RED) {
   const jwtCore = require('./core/jwt-core')
+
   const jwtLib = require('jsonwebtoken')
 
   function JWTInputNode (config) {
     RED.nodes.createNode(this, config)
     this.name = config.name
     this.algoType = config.algoType || 'HASH'
-
     this.signature = config.signature || 'jwt'
-
     this.publicKeyFile = config.publicKeyFile || null
-
     this.tokenPayload = config.tokenPayload || 'Node-RED-JWT'
     this.selectedProperty = config.selectedProperty || 'token'
-
     this.useOptions = config.useOptions
     this.entireMessage = config.entireMessage
-    this.showErrors = config.showErrors
+    this.showErrors = config.showErrors // options
 
-    // options
     this.issuer = config.issuer || ''
     this.subject = config.subject || ''
     this.audience = config.audience || ''
     this.jwtid = config.jwtid || ''
-
     this.ignoreExpiration = config.ignoreExpiration
     this.ignoreNotBefore = config.ignoreNotBefore
-
     this.clockTolerance = config.clockTolerance || 1
     this.clockToleranceUnit = config.clockToleranceUnit || 's'
-
     this.useMaxAge = config.useMaxAge
     this.maxAge = config.maxAge || 120
     this.maxAgeUnit = config.maxAgeUnit || 's'
-
     const node = this
-
-    node.status({ fill: 'green', shape: 'dot', text: 'active' })
+    node.status({
+      fill: 'green',
+      shape: 'dot',
+      text: 'active'
+    })
 
     if (node.algoType === 'FILE') {
       try {
         const localFileName = jwtCore.path.join(__dirname, node.publicKeyFile)
+
         if (jwtCore.fs.existsSync(localFileName)) {
           node.cert = jwtCore.fs.readFileSync(localFileName, 'utf8')
         } else {
@@ -57,12 +53,16 @@ module.exports = function (RED) {
         }
       } catch (err) {
         if (node.showErrors) {
-          node.error(err, { payload: '' })
+          node.error(err, {
+            payload: ''
+          })
         }
+
         jwtCore.internalDebugLog(err.message)
         jwtCore.internalDebugLog('searched on: ' + node.publicKeyFile)
         jwtCore.internalDebugLog('searched on: ' + jwtCore.path.join(__dirname, node.publicKeyFile))
       }
+
       node.algorithms = ['RS256', 'RS384', 'RS512', 'ES256', 'ES384', 'ES512']
     } else {
       node.algorithms = ['HS256', 'HS384', 'HS512']
@@ -86,12 +86,10 @@ module.exports = function (RED) {
     }
 
     node.getSignOptions = function (msg) {
-      const algo = (node.algoType === 'FILE') ? node.algoFile : node.algoHash
-
+      const algo = node.algoType === 'FILE' ? node.algoFile : node.algoHash
       const options = {
         algorithm: algo
       }
-
       return node.fillWithOptions(msg, options)
     }
 
@@ -99,7 +97,6 @@ module.exports = function (RED) {
       const options = {
         algorithm: 'none'
       }
-
       return node.fillWithOptions(msg, options)
     }
 
@@ -107,6 +104,7 @@ module.exports = function (RED) {
       if (node.showErrors) {
         node.error(err, msg)
       }
+
       jwtCore.internalDebugLog(err.message)
     }
 
@@ -114,7 +112,7 @@ module.exports = function (RED) {
       jwtCore.internalDebugLog('Verify Message From ' + node.algoType + ' Algorithms Allowed ' + node.algorithms)
 
       if (node.entireMessage) {
-        msg = jwtLib.verify(msg, signature, (node.useOptions) ? node.getSignOptions() : {}, function (err, decodedMsg) {
+        msg = jwtLib.verify(msg, signature, node.useOptions ? node.getSignOptions() : {}, function (err, decodedMsg) {
           if (err) {
             node.handleError(err, msg)
           } else {
@@ -123,7 +121,7 @@ module.exports = function (RED) {
           }
         })
       } else {
-        jwtLib.verify(msg[node.selectedProperty], signature, (node.useOptions) ? node.getSignOptions() : {}, function (err, decoded) {
+        jwtLib.verify(msg[node.selectedProperty], signature, node.useOptions ? node.getSignOptions() : {}, function (err, decoded) {
           if (err) {
             node.handleError(err, msg)
           } else {
@@ -139,7 +137,7 @@ module.exports = function (RED) {
       jwtCore.internalDebugLog('Message With Token')
 
       if (node.entireMessage) {
-        msg = jwtLib.verify(msg, signature, (node.useOptions) ? node.getUnsignedOptions() : {}, function (err, decodedMsg) {
+        msg = jwtLib.verify(msg, signature, node.useOptions ? node.getUnsignedOptions() : {}, function (err, decodedMsg) {
           if (err) {
             node.handleError(err, msg)
           } else {
@@ -148,7 +146,7 @@ module.exports = function (RED) {
           }
         })
       } else {
-        jwtLib.verify(msg[node.selectedProperty], signature, (node.useOptions) ? node.getUnsignedOptions() : {}, function (err, decoded) {
+        jwtLib.verify(msg[node.selectedProperty], signature, node.useOptions ? node.getUnsignedOptions() : {}, function (err, decoded) {
           if (err) {
             node.handleError(err, msg)
           } else {
@@ -164,16 +162,22 @@ module.exports = function (RED) {
       jwtCore.internalDebugLog('Decode Message Untrusted')
 
       if (node.entireMessage) {
-        msg = jwtLib.decode(msg, { complete: true })
+        msg = jwtLib.decode(msg, {
+          complete: true
+        })
       } else {
-        msg[node.selectedProperty] = jwtLib.decode(msg[node.selectedProperty], { complete: true })
+        msg[node.selectedProperty] = jwtLib.decode(msg[node.selectedProperty], {
+          complete: true
+        })
       }
+
       msg.untrusted = true
       node.send(msg)
     }
 
     node.on('input', function (msg) {
       let message = msg
+
       if (node.entireMessage) {
         message = msg.payload
       }
@@ -182,12 +186,15 @@ module.exports = function (RED) {
         case 'FILE':
           node.jwtVerify(message, node.cert)
           break
+
         case 'NONE':
           node.jwtUnsigned(message, node.signature)
           break
+
         case 'DECODE':
           node.decodeMessage(message)
           break
+
         default:
           node.jwtVerify(message, node.signature)
       }
@@ -196,3 +203,4 @@ module.exports = function (RED) {
 
   RED.nodes.registerType('JWT-IN', JWTInputNode)
 }
+// # sourceMappingURL=maps/jwt-in.js.map

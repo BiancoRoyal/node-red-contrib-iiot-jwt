@@ -10,164 +10,16 @@
 
 'use strict'
 
-var injectNode = require('node-red/nodes/core/core/20-inject.js')
+jest.setTimeout(10000)
+
+const injectNode = require("@node-red/nodes/core/common/20-inject");
+
 var outputNode = require('../src/jwt-out.js')
 
 var helper = require('node-red-node-test-helper')
 helper.init(require.resolve('node-red'))
 
-var testFlowPayload = [
-  {
-    'id': 'n1',
-    'type': 'inject',
-    'name': '',
-    'topic': '',
-    'payload': 'test message',
-    'payloadType': 'str',
-    'repeat': '',
-    'crontab': '',
-    'once': true,
-    'wires': [
-      [
-        'n2', 'n3'
-      ]
-    ]
-  },
-  { id: 'n2', type: 'helper' },
-  {
-    'id': 'n3',
-    'type': 'JWT-OUT',
-    'name': '',
-    'algoType': 'HASH',
-    'signature': '',
-    'algoHash': 'HS256',
-    'privateKeyFile': '',
-    'algoFile': 'RS256',
-    'tokenPayload': '',
-    'selectedProperty': 'payload',
-    'entireMessage': false,
-    'showErrors': false,
-    'useOptions': false,
-    'issuer': '',
-    'subject': '',
-    'audience': '',
-    'jwtId': '',
-    'tokenExpires': false,
-    'expiresIn': 60,
-    'expiresInUnit': 's',
-    'tokenNotBefore': false,
-    'notBefore': 1,
-    'notBeforeUnit': 's',
-    'wires': [
-      [
-        'n4'
-      ]
-    ]
-  },
-  { id: 'n4', type: 'helper' }
-]
-
-var testFlowToken = [
-  {
-    'id': 'n1',
-    'type': 'inject',
-    'name': '',
-    'topic': '',
-    'payload': 'test message',
-    'payloadType': 'str',
-    'repeat': '',
-    'crontab': '',
-    'once': true,
-    'wires': [
-      [
-        'n2', 'n3'
-      ]
-    ]
-  },
-  { id: 'n2', type: 'helper' },
-  {
-    'id': 'n3',
-    'type': 'JWT-OUT',
-    'name': '',
-    'algoType': 'HASH',
-    'signature': '',
-    'algoHash': 'HS256',
-    'privateKeyFile': '',
-    'algoFile': 'RS256',
-    'tokenPayload': '',
-    'selectedProperty': '',
-    'entireMessage': false,
-    'showErrors': false,
-    'useOptions': false,
-    'issuer': '',
-    'subject': '',
-    'audience': '',
-    'jwtId': '',
-    'tokenExpires': false,
-    'expiresIn': 60,
-    'expiresInUnit': 's',
-    'tokenNotBefore': false,
-    'notBefore': 1,
-    'notBeforeUnit': 's',
-    'wires': [
-      [
-        'n4'
-      ]
-    ]
-  },
-  { id: 'n4', type: 'helper' }
-]
-
-var testNoneFlowPayload = [
-  {
-    'id': 'n1f2',
-    'type': 'inject',
-    'name': '',
-    'topic': '',
-    'payload': 'test message',
-    'payloadType': 'str',
-    'repeat': '',
-    'crontab': '',
-    'once': true,
-    'wires': [
-      [
-        'n2f2', 'n3f2'
-      ]
-    ]
-  },
-  { id: 'n2f2', type: 'helper' },
-  {
-    'id': 'n3f2',
-    'type': 'JWT-OUT',
-    'name': '',
-    'algoType': 'NONE',
-    'signature': '',
-    'algoHash': 'HS256',
-    'privateKeyFile': '',
-    'algoFile': 'RS256',
-    'tokenPayload': '',
-    'selectedProperty': 'payload',
-    'entireMessage': false,
-    'showErrors': false,
-    'useOptions': false,
-    'issuer': '',
-    'subject': '',
-    'audience': '',
-    'jwtId': '',
-    'tokenExpires': false,
-    'expiresIn': 60,
-    'expiresInUnit': 's',
-    'tokenNotBefore': false,
-    'notBefore': 1,
-    'notBeforeUnit': 's',
-    'wires': [
-      [
-        'n4f2'
-      ]
-    ]
-  },
-  { id: 'n4f2', type: 'helper' }
-]
+const flows = require("./flows/out-flows");
 
 describe('JWT Out node Testing', function () {
   beforeAll(function (done) {
@@ -211,9 +63,9 @@ describe('JWT Out node Testing', function () {
     })
 
     it('should have a message', function (done) {
-      helper.load([injectNode, outputNode], testFlowPayload, function () {
-        let n1 = helper.getNode('n1')
-        n1.on('input', function (msg) {
+      helper.load([injectNode, outputNode], flows.testFlowPayload, function () {
+        let n2 = helper.getNode('n2')
+        n2.on('input', function (msg) {
           expect(msg.payload).toBe('test message')
           done()
         })
@@ -221,7 +73,7 @@ describe('JWT Out node Testing', function () {
     })
 
     it('should have a token', function (done) {
-      helper.load([injectNode, outputNode], testFlowToken, function () {
+      helper.load([injectNode, outputNode], flows.testFlowToken, function () {
         let n3 = helper.getNode('n3')
         n3.on('input', function (msg) {
           expect(msg.token).toBeDefined()
@@ -232,7 +84,7 @@ describe('JWT Out node Testing', function () {
     })
 
     it('should sign a message with HASH algo type', function (done) {
-      helper.load([injectNode, outputNode], testFlowPayload, function () {
+      helper.load([injectNode, outputNode], flows.testFlowPayload, function () {
         let n4 = helper.getNode('n4')
         n4.on('input', function (msg) {
           expect(msg.payload).toBeDefined()
@@ -243,7 +95,7 @@ describe('JWT Out node Testing', function () {
     })
 
     it('should have a message with NONE algo type', function (done) {
-      helper.load([injectNode, outputNode], testNoneFlowPayload, function () {
+      helper.load([injectNode, outputNode], flows.testNoneFlowPayload, function () {
         let n4 = helper.getNode('n4f2')
         n4.on('input', function (msg) {
           expect(msg.payload).toMatch(/^eyJhbGciOiJIUzI1NiJ9.*./)
