@@ -1,9 +1,13 @@
 ![Platform Node-RED](http://b.repl.ca/v1/Platform-Node--RED-red.png)
 ![Node-RED JWT](http://b.repl.ca/v1/Node--RED-JWT-blue.png)
+![NodeJS_Version](http://b.repl.ca/v1/NodeJS-LTS-green.png)
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+[![NPM download](https://img.shields.io/npm/dm/node-red-contrib-iiot-jwt.svg)](http://www.npm-stats.com/~packages/node-red-contrib-iiot-jwt)
+[![NPM version](https://badge.fury.io/js/node-red-contrib-iiot-jwt.png)](http://badge.fury.io/js/node-red-contrib-iiot-jwt)
 [![Repository GitHub](http://b.repl.ca/v1/Repository-GitHub-orange.png)](https://github.com/biancode/node-red-contrib-iiot-jwt)
-[![Quality Travis CI](http://b.repl.ca/v1/Quality-Travis_CI-green.png)](https://travis-ci.org/biancode/node-red-contrib-iiot-jwt)
-[![Build Status](https://travis-ci.org/biancode/node-red-contrib-iiot-jwt.svg?branch=master)](https://travis-ci.org/biancode/node-red-contrib-iiot-jwt)
+[![Build and publish](https://github.com/BiancoRoyal/node-red-contrib-iiot-jwt/actions/workflows/build.yml/badge.svg)](https://github.com/BiancoRoyal/node-red-contrib-iiot-jwt/actions/workflows/build.yml)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0ec6d71df1cc48898d0bccbb901ef846)](https://www.codacy.com/app/klaus/node-red-contrib-iiot-jwt?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=biancode/node-red-contrib-iiot-jwt&amp;utm_campaign=Badge_Grade)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/BiancoRoyal/node-red-contrib-iiot-jwt)
 
 [![nodejsonwebtoken](images/jwt-icon-small64.png)](https://jwt.io/)
 

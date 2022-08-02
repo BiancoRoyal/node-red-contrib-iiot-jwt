@@ -1,6 +1,6 @@
 # Contributing to node-red-contrib-iiot-jwt
 
-As in Node-RED we have some guidelines for the JWT IIoT contribution package.
+As in Node-RED we have some guidelines for the JWT contribution package.
 We welcome contributions, but request you follow these guidelines.
 
  - [Coding rules](#coding-rules)
@@ -31,12 +31,12 @@ relevant nodes, press Ctrl-E and copy the flow data from the Export dialog.
 
 At a minimum, please include:
 
- - Version of node.js? (should be >=LTS)
- - Version of Node-RED? (should be >=v0.19.0)
- - Version of node-red-contrib-iiot-jwt? (should be >=v1.0.0)
- 
+ - Version of node.js? (should be >= 16)
+ - Version of Node-RED? (should be >= 3)
+ - Version of node-red-contrib-bit? (should be >= 1)
+
  - What is your platform? (Linux, macOS, ...)
- - What does `DEBUG=jsonWebToken:* node-red -v` say? (log files are welcome)
+ - What does `DEBUG=* node-red -v` log? (log files are welcome)
 
 ## Feature requests
 

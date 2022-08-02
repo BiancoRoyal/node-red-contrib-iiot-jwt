@@ -1,7 +1,7 @@
 /*
- The BSD 3-Clause License
+ MIT License
 
- Copyright 2017,2018 - Klaus Landsdorf (http://bianco-royal.de/)
+ Copyright (c) 2017-2022 Klaus Landsdorf (http://node-red.plus/)
  All rights reserved.
  node-red-contrib-iiot-jwt
  */

@@ -6,6 +6,6 @@ npm cache verify
 
 npm outdated
 
-ncu -u --upgradeAll --packageFile package.json
+ncu -u
 
 npm install
