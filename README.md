@@ -66,9 +66,9 @@ It is just to provide JSON Web Tokens to Node-RED based on jsonwebtoken package.
 I'd like to give special thanks to [AuthO][2] for the jwt package! 
 
 
-[1]:https://bianco-royal.cloud/
+[1]:https://bianco-royal.space/
 [2]:https://github.com/auth0/
 [3]:https://bianco-royal.cloud/supporter/
 [4]:https://www.npmjs.com/package/jsonwebtoken/
 [5]:https://jwt.io/
-[6]:https://github.com/biancode/node-red-contrib-iiot-jwt
+[6]:https://github.com/BiancoRoyal/node-red-contrib-iiot-jwt
