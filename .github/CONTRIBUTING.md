@@ -33,7 +33,7 @@ At a minimum, please include:
 
  - Version of node.js? (should be >= 16)
  - Version of Node-RED? (should be >= 3)
- - Version of node-red-contrib-bit? (should be >= 1)
+ - Version of node-red-contrib-iiot-jwt? (should be >= 1)
 
  - What is your platform? (Linux, macOS, ...)
  - What does `DEBUG=* node-red -v` log? (log files are welcome)
