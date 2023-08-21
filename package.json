@@ -10,7 +10,7 @@
   "dependencies": {
     "debug": "~4.3.4",
     "jsonwebtoken": "~8.5.1",
-    "bson": "~4.6.5",
+    "bson": "~5.4.0",
     "underscore": "~1.13.4"
   },
   "keywords": [
